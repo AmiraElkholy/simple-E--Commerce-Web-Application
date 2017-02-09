@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>eCommerce - Home</title>
+        <title>eCommerce - Category</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -53,7 +53,7 @@
                     </div><!-- end search-form -->
 
                     <div id="user-menu">
-                        <!--
+                        
                         <nav id="signin" class="dropdown">
                             <ul>
                                 <li>
@@ -64,8 +64,9 @@
                                     </ul>
                                 </li>
                             </ul>
-                        </nav>-->
+                        </nav>
 
+                        <!--
                         <nav class="dropdown">
                             <ul>
                                 <li>
@@ -77,7 +78,7 @@
                                     </ul>
                                 </li>
                             </ul>
-                        </nav>
+                        </nav>-->
                     </div><!-- end user-menu -->
 
                     <div id="view-cart">
@@ -86,20 +87,40 @@
                 </section><!-- end action-bar -->
             </header>
 
-            <section id="promo">
-                <div id="promo-details">
-                    <h1>Today's Deals</h1>
-                    <p>Checkout this section of<br />
-                     products at a discounted price.</p>
-                    <a href="#" class="default-btn">Shop Now</a>
-                </div><!-- end promo-details -->
-                <img src="img/promo.png" alt="Promotional Ad">
-            </section><!-- promo -->
+            <section id="promo-alt">
+                <div id="promo1">
+                    <h1>The brand new MacBook Pro</h1>
+                    <p>With a special price, <span class="bold">today only!</span></p>
+                    <a href="#" class="secondary-btn">READ MORE</a>
+                    <img src="img/macbook.png" alt="MacBook Pro">
+                </div><!-- end promo1 -->
+                <div id="promo2">
+                    <h2>The iPhone 5 is now<br>available in our store!</h2>
+                    <a href="">Read more <img src="img/right-arrow.gif" alt="Read more"></a>
+                    <img src="img/iphone.png" alt="iPhone">
+                </div><!-- end promo2 -->
+                <div id="promo3">
+                    <img src="img/thunderbolt.png" alt="Thunderbolt">
+                    <h2>The 27"<br>Thunderbolt Display.<br>Simply Stunning.</h2>
+                    <a href="#">Read more <img src="img/right-arrow.gif" alt="Read more" /></a>
+                </div><!-- end promo3 -->
+            </section><!-- promo-alt -->
 
-            <section id="main-content">
-                <h2>Featured</h2>
+            <section id="main-content" class="clearfix">
+                <h2>Category Name</h2>
                 <hr>
-                <div id="products">
+
+                <aside id="categories-menu">
+                    <h3>CATEGORIES</h3>
+                    <ul>
+                        <li><a href="#">Laptops</a></li>
+                        <li><a href="#">Desktop PC</a></li>
+                        <li><a href="#">Smartphones</a></li>
+                        <li><a href="#">Tablets</a></li>
+                    </ul>
+                </aside><!-- end categories-menu -->
+
+                <div id="listings">
                     <div class="product">
                         <a href="#"><img src="img/product.gif" alt="Product" class="feature"></a>
 
@@ -196,8 +217,66 @@
                             </a>
                         </p>
                     </div>
-                </div><!-- end products -->
+                    <div class="product">
+                        <a href="#"><img src="img/product.gif" alt="Product" class="feature"></a>
+
+                        <h3><a href="#">This is the Product Title</a></h3>
+
+                        <p>This is a short description. </p>
+
+                        <h5>Availability: <span class="instock">In Stock</span></h5>
+
+                        <p>
+                            <a href="#" class="cart-btn">
+                                <span class="price">$499.08</span>
+                                 <img src="img/white-cart.gif" alt="Add to Cart">
+                                  ADD TO CART
+                            </a>
+                        </p>
+
+                        <p class="wish">
+                            <a href="">
+                                <img src="img/wish.gif" alt="Add to Wishlist">
+                                 Add to Wishlist
+                            </a>
+                        </p>
+                    </div>
+                    <div class="product">
+                        <a href="#"><img src="img/product.gif" alt="Product" class="feature"></a>
+
+                        <h3><a href="#">This is the Product Title</a></h3>
+
+                        <p>This is a short description. </p>
+
+                        <h5>Availability: <span class="instock">In Stock</span></h5>
+
+                        <p>
+                            <a href="#" class="cart-btn">
+                                <span class="price">$499.08</span>
+                                 <img src="img/white-cart.gif" alt="Add to Cart">
+                                  ADD TO CART
+                            </a>
+                        </p>
+
+                        <p class="wish">
+                            <a href="">
+                                <img src="img/wish.gif" alt="Add to Wishlist">
+                                 Add to Wishlist
+                            </a>
+                        </p>
+                    </div>
+                </div><!-- end listings -->
             </section><!-- end main-content -->
+
+            <hr />
+
+            <section id="pagination">
+                <p>Page: 
+                    <span class="current">1</span> / 
+                    <a href="#">2</a> / 
+                    <a href="#">3</a>
+                </p>
+            </section><!-- end pagination -->
 
             <hr />
 
