@@ -655,7 +655,7 @@ header a:link, header a:visited {
     font-size: 12px;
 }
 
-#new-account p input,
+#new-account p input,#new-account p textarea,
 #personal-details p input {
     width: 300px;
     border: 1px solid #eee;
