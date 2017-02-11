@@ -15,11 +15,11 @@
             $usr = new user();
             $user = $usr->selectbyemail($_COOKIES['email']);
             $_SESSION['loggeduser'] = $user;
-
         } 
         else {
             $user = $_SESSION['loggeduser'];
         }
+        //redirect user
         if($user->isadmin == 1) {
             header('Location: users-list.php');
         }

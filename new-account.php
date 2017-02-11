@@ -263,7 +263,7 @@
                             <label for="email">
                                 <span class="required-field">*</span> EMAIL:
                             </label>
-                            <input type="email" id="email" name="email" required value="<?= $email?>">
+                            <input id="emailField" type="email" id="email" name="email" required value="<?= $email?>">
                             <br><span class="form-error"><?= $emailErr;?></span>
                         </p>
                         <p>
@@ -404,8 +404,20 @@
                     altFormat: "yy-mm-dd",
                     altField: "#datepicker"
                 });
-                $( "#datepicker" ).datepicker( "option", "altFormat", "yy-mm-dd" );
-            } );
+                
+                $("#emailField").on('change', function() {
+                    var span = $("#emailField").siblings("span");
+                    span.html("");
+                    $.ajax({
+                        url: "isvalidemail.php",
+                        data: {email: $('#emailField').val()},
+                        success: function(result){
+                            span.html(JSON.parse(result));
+                        },
+                    });//end of ajax request
+                });//end of on change 
+
+            });
         </script>
     </body>
 </html>

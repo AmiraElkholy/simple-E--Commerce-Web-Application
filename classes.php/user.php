@@ -20,6 +20,14 @@ class user{
         $this->$name = $value;
     }
 
+    function isvalidemail($email) {
+        $exists = $this->selectbyemail($email);
+        if($exists) 
+            return false;
+        else
+            return true;
+    }
+
     function insert() {
         require 'config.php';
 
