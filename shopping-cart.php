@@ -1,32 +1,28 @@
 <?php  
+    require_once 'auto_load.php';
+    session_start();
 
-	require_once 'auto_load.php';
-	session_start();
-
-	if(isset($_GET['error'])) {
+    if(isset($_GET['error'])) {
         echo "<p class='error'>".$_GET['error']."</p>";
     }
+    if(isset($_GET['message'])) {
+        echo "<p class='message'>".$_GET['message']."</p>";
+    }
 
-	if(isset($_SESSION['loggeduser'])) {
-		$loguser = $_SESSION['loggeduser'];
-		
-		if($loguser->isadmin == 1) {
-			$usr = new user();
-			$users = $usr->selectAll();
-		}
-		else {
-			header('Location: signin.php?error=you are not allowed access.. ');
-			exit;
-		}		
-	}
-	else {
-		header('Location: signin.php?error=you are not logged in, please log in first');
-		exit;
-	}
+
+    if(isset($_SESSION['loggeduser'])) {
+        $loguser = $_SESSION['loggeduser'];
+
+           
+       
+    }
+    else {
+        header('Location: signin.php?error=you are not logged in, please log in first');
+        exit;
+    }
 
 
 ?>
-
 
 
 <!DOCTYPE html>
@@ -37,7 +33,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>eCommerce - Display All Users</title>
+        <title>eCommerce - Shopping Cart & Checkout</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -58,7 +54,7 @@
                     <p>Phone orders: 1-800-0000 | Email us: <a href="mailto:office@shop.com">office@shop.com</a></p>
                 </section><!-- end top-area -->
                 <section id="action-bar">
-                    <div id="logo" class="admin-view">
+                    <div id="logo">
                         <a href="#"><span id="logo-accent">e</span>Commerce</a>
                     </div><!-- end logo -->
 
@@ -85,12 +81,25 @@
 
                     <div id="user-menu">
                         
+                       <!--  <nav id="signin" class="dropdown">
+                            <ul>
+                                <li>
+                                    <a href="#"><img src="img/user-icon.gif" alt="Sign In" /> Sign In <img src="img/down-arrow.gif" alt="Sign In" /></a>
+                                    <ul>
+                                        <li><a href="#">Sign In</a></li>
+                                        <li><a href="#">Sign Up</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav> -->
+
+                        
                         <nav class="dropdown">
                             <ul>
                                 <li>
-                                    <a href="#"><img src="img/user-icon.gif" alt="<?= $loguser->name?>" /> <?= $loguser->name ?> <img src="img/down-arrow.gif" alt="<?= $loguser->name ?>" /></a>
+                                    <a href="#"><img src="img/user-icon.gif" alt="<?= $loguser->name ?>" /> <?= $loguser->name ?> <img src="img/down-arrow.gif" alt="<?= $loguser->name ?>" /></a>
                                     <ul>
-                                        <li><a href="update-user-info.php">Update My Info</a></li>
+                                        <li><a href="update-user-info.php">Update Info</a></li>
                                         <li><a href="#">Order History</a></li>
                                         <li><a href="#">Wishlist</a></li>
                                         <li><a href="signout.php">Sign Out</a></li>
@@ -98,71 +107,80 @@
                                 </li>
                             </ul>
                         </nav>
-
-                        <!--
-                        <nav class="dropdown">
-                            <ul>
-                                <li>
-                                    <a href="#"><img src="img/user-icon.gif" alt="Andrew Perkins" /> Andrew Perkins <img src="img/down-arrow.gif" alt="Andrew Perkins" /></a>
-                                    <ul>
-                                        <li><a href="#">Order History</a></li>
-                                        <li><a href="#">Wishlist</a></li>
-                                        <li><a href="#">Sign Out</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>-->
                     </div><!-- end user-menu -->
 
                     <div id="view-cart">
-                                            
-                        <a href="admin-panel.php" id="admin-panel"><img src="img/admin.ico" alt="Admin Panel"> Admin Panel</a>
-                        <a href="shopping-cart.php"><img src="img/blue-cart.gif" alt="View Cart"> View Cart</a>
-                    </div><!-- end view-cart && admin-panel -->
+                        <a href="#"><img src="img/blue-cart.gif" alt="View Cart"> View Cart</a>
+                    </div><!-- end view-cart -->
                 </section><!-- end action-bar -->
             </header>
 
             <hr />
 
             <section id="main-content" class="clearfix">
-                <div id="users-list">
-                    <h1>Display All Users</h1>
+                <div id="shopping-cart">
+                    <h1>Shopping Cart & Checkout</h1>
 
-                        <table border="1" class="users-table">
+                    <form action="#" method="post">
+                        <table border="1">
                             <tr>
                                 <th>#</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Credit Limit</th>
-                                <th>controls</th>
+                                <th>Product Name</th>
+                                <th>Unit Price</th>
+                                <th>Quantity</th>
+                                <th>Subtotal</th>
                             </tr>
-                            <?php 
-								foreach ($users as $user) {
-									if($user->name === "admin")
-										continue;
-                                    if($user->iduser === $loguser->iduser)
-                                        continue;
-									echo "<tr>";
-									echo "<td>".$user->iduser."</td>";
-									echo "<td>".$user->name."</td>";
-									echo "<td>".$user->email."</td>";
-									echo "<td>".$user->creditlimit."</td>";
-									echo "<td>";
-							?>
-
-									<a href="view-user-info.php?id=<?= $user->iduser ?>">view info
-                                    </a>  
-									<a class="remove-icon" href="delete-user.php?id=<?= $user->iduser ?>">delete
-									 	<img src="img/remove.gif" alt="Remove user" />
-										
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    <img src="img/main-product.png" alt="Product" width="65" height="37" /> 
+                                    Product Name
+                                </td>
+                                <td>$400</td>
+                                <td>
+                                    <input type="text" value="1" maxlength="2" class="qty" /> 
+                                    <a href="#">
+                                        <img src="img/refresh.gif" alt="Refresh cart" />
                                     </a>
-                                    
+                                </td>
+                                <td>
+                                    $400 
+                                    <a href="#">
+                                        <img src="img/remove.gif" alt="Remove product" />
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>
+                                    <img src="img/main-product.png" alt="Product" width="65" height="37" /> 
+                                    Product Name
+                                </td>
+                                <td>$400</td>
+                                <td>
+                                    <input type="text" value="2" maxlength="2" class="qty" /> 
+                                    <a href="#">
+                                        <img src="img/refresh.gif" alt="Refresh cart" />
+                                    </a>
+                                </td>
+                                <td>
+                                    $800 
+                                    <a href="#">
+                                        <img src="img/remove.gif" alt="Remove product" />
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr class="total">
+                                <td colspan="5">
+                                    Subtotal: $1200<br />
+                                    <span>TOTAL: $1200</span><br />
 
-							<?php   echo"</td>";
-									echo "</tr>";
-								}	
-							?>
+                                    <a href="#" class="tertiary-btn">CONTINUE SHOPPING</a>
+                                    <input type="submit" value="CHECKOUT WITH PAYPAL" class="secondary-cart-btn">
+                                </td>
+                            </tr>
                         </table>
+                    </form>
                 </div><!-- end new-account -->
             </section><!-- end main-content -->
 

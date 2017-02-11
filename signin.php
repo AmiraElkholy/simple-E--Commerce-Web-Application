@@ -24,7 +24,7 @@
             header('Location: users-list.php');
         }
         else {
-            header('Location: profile.php');
+            header('Location: shopping-cart.php');
         }
     }
   
@@ -120,7 +120,7 @@
                     </div><!-- end user-menu -->
 
                     <div id="view-cart">
-                        <a href="#"><img src="img/blue-cart.gif" alt="View Cart"> View Cart</a>
+                        <a href="shopping-cart.php"><img src="img/blue-cart.gif" alt="View Cart"> View Cart</a>
                     </div><!-- end view-cart -->
                 </section><!-- end action-bar -->
             </header>

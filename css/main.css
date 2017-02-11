@@ -253,8 +253,16 @@ header a:link, header a:visited {
     float: left;
 }
 
-#action-bar #view-cart a:link, #action-bar #view-cart a:visited {
+#action-bar #admin-panel {
+    margin-right: 20px;
+}
+
+#action-bar #view-cart a, #action-bar #view-cart a:link, #action-bar #view-cart a:visited 
+/*#action-bar #admin-panel a, #action-bar #admin-panel a:link, #action-bar #admin-panel a:visited */{
     color: #5daad0;
+}
+#action-bar a#admin-panel{
+    color: #0078c1 !important;
 }
 
 /* ============================================================================
@@ -1317,20 +1325,28 @@ input[type=checkbox]:hover {
 li > a {
     outline: none;
 }
-a.remove-icon {
-    margin-left: 10px;
-    text-decoration: none;
-}
-a.remove-icon img {
-    /*background-color: red !important;*/
-    border-radius: 20px;
-    width: 15px;
-    height: 15px;
-}
 .users-table {
     text-align: center;
 }
 .users-table a {
     color: #5daad0;
-
+}
+a.remove-icon {
+    float: right;
+    margin-right: 20px;
+    text-decoration: none;
+    color: #0078c1;
+}
+a.remove-icon img {
+    background-color: #0078c1;
+    border-radius: 20px;
+    width: 15px;
+    height: 15px;
+}
+span.form-error {
+    color: red;
+    margin-left: 15px;
+}
+#action-bar #logo.admin-view {
+    margin-right: 50px;
 }

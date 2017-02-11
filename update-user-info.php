@@ -1,15 +1,38 @@
 <?php 
     require_once 'auto_load.php';
+    session_start();
     
-
     if(isset($_GET['error'])) {
         echo "<p class='error'>".$_GET['error']."</p>";
     }
+    if(isset($_GET['message'])) {
+        echo "<p class='message'>".$_GET['message']."</p>";
+    }
+
+
+    //check if user is logged in..
+    if(isset($_SESSION['loggeduser'])) {
+        $loguser = $_SESSION['loggeduser'];
+
+    }
+    else {
+        header('Location: signin.php?error=you are not logged in, please log in first');
+        exit;
+    }
+
 
     // define variables and set to empty values for valiation
-    $nameErr = $emailErr = $passwordErr = $passwordconfirmErr = $birthdateErr = $jobErr = $addressErr = $creditlimitErr = "";
-    $name = $email = $password = $passwordconfirm = $birthdate = $job = $address = $creditlimit = "";
-    $nameValid = $emailValid = $passwordValid = $passwordconfirmValid = $birthdateValid = $jobValid = $addressValid = $creditlimitValid = false;
+    $nameErr = $passwordErr = $passwordconfirmErr = $birthdateErr = $jobErr = $addressErr = $creditlimitErr = "";
+
+    $name = $loguser->name;
+    $password = "";
+    $passwordconfirm = "";
+    $birthdate = $loguser->birthdate;
+    $job = $loguser->job;
+    $address = $loguser->address;
+    $creditlimit = $loguser->creditlimit;
+
+    $nameValid = $passwordValid = $passwordconfirmValid = $birthdateValid = $jobValid = $addressValid = $creditlimitValid = false;
 
     if($_POST) {
 
@@ -31,21 +54,6 @@
         }
 
 
-        //validate email
-        if(isset($_POST['email'])&&!empty($_POST['email'])) {
-            $email = test_input($_POST["email"]);
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $emailErr = "* Invalid email address"; 
-            }
-            else {
-                $emailValid = true;
-            }
-        }
-        else {
-            $emailErr = "* Email is required";
-        }
-
-
         //validate password
         if(isset($_POST['password'])&&!empty($_POST['password'])) {
             $password = $_POST["password"];
@@ -57,7 +65,8 @@
             }
         }
         else {
-            $passwordErr = "* Password can't be empty !";
+            $password = "";
+            $passwordValid = true;
         }
 
         //validate password confirm 
@@ -71,7 +80,8 @@
             }
         }
         else {
-            $passwordconfirmErr = "* Password confirm can't be empty";
+            $passwordconfirm = "";
+            $passwordconfirmValid = true;
         }
 
 
@@ -136,26 +146,32 @@
 
 
         //if all fields are valid
-        if($nameValid && $emailValid && $passwordValid && $passwordconfirmValid && $birthdateValid && $jobValid && $addressValid && $creditlimitValid) {
+        if($nameValid && $passwordValid && $passwordconfirmValid && $birthdateValid && $jobValid && $addressValid && $creditlimitValid) {
             
             $user = new user();
 
+            $user->iduser = $loguser->iduser;
+            $user->email = $loguser->email;
+            if($password!="") {
+                $user->password = sha1($password);
+            }
+            else {
+                $user->password = $loguser->password;
+            }
             $user->name = $name;
-            $user->email = $email;
-            $user->password = sha1($password);
             $user->birthdate = $birthdate;
             $user->job = $job;
             $user->address = $address;
             $user->creditlimit = $creditlimit;
 
-            $state = $user->insert();
+            $usr = $user->update();
 
-            if($state) {
-                //echo "success";
-                header('Location: signin.php');
+            if($usr) {
+                $_SESSION['loggeduser'] = $usr;
+                header('Location: shopping-cart.php?message=your information updated successfully');
             }
             else {
-                header('Location: new-account.php?error=failed to create new user');
+                header('Location: new-account.php?error=failed to update info..');
             }
 
         }
@@ -225,13 +241,15 @@
 
                     <div id="user-menu">
                         
-                        <nav id="signin" class="dropdown">
+                        <nav class="dropdown">
                             <ul>
                                 <li>
-                                    <a href="#"><img src="img/user-icon.gif" alt="Sign In" /> Sign In <img src="img/down-arrow.gif" alt="Sign In" /></a>
+                                    <a href="#"><img src="img/user-icon.gif" alt="<?= $loguser->name ?>" /> <?= $loguser->name ?> <img src="img/down-arrow.gif" alt="<?= $loguser->name ?>" /></a>
                                     <ul>
-                                        <li><a href="signin.php">Sign In</a></li>
-                                        <li><a href="#">Sign Up</a></li>
+                                        <li><a href="#">Update Info</a></li>
+                                        <li><a href="#">Order History</a></li>
+                                        <li><a href="#">Wishlist</a></li>
+                                        <li><a href="signout.php">Sign Out</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -249,7 +267,7 @@
 
             <section id="main-content" class="clearfix">
                 <div id="new-account">
-                    <h1>Create New Account</h1>
+                    <h1>Update account Info</h1>
 
                     <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
                         <p>
@@ -260,31 +278,24 @@
                             <br><span class="form-error"><?= $nameErr;?></span>
                         </p>
                         <p>
-                            <label for="email">
-                                <span class="required-field">*</span> EMAIL:
-                            </label>
-                            <input type="email" id="email" name="email" required value="<?= $email?>">
-                            <br><span class="form-error"><?= $emailErr;?></span>
-                        </p>
-                        <p>
                             <label for="password">
                                 <span class="required-field">*</span> PASSWORD:
                             </label>
-                            <input type="password" id="password" name="password" required>
+                            <input type="password" id="password" name="password" placeholder="only enter new one if you want to change password">
                             <br><span class="form-error"><?= $passwordErr;?></span>
                         </p>
                         <p>
                             <label for="passwordconfirm">
                                 <span class="required-field">*</span> CONFIRM PASSWORD:
                             </label>
-                            <input type="password" id="passwordconfirm" name="passwordconfirm" required>
+                            <input type="password" id="passwordconfirm" name="passwordconfirm" placeholder="only enter if you want to change password">
                             <br><span class="form-error"><?= $passwordconfirmErr;?></span>
                         </p>
                         <p>
                             <label for="birthdate">
                                 <span class="required-field">*</span> BIRTHDATE:
                             </label>
-                            <input type="text" id="datepicker" name="birthdate" required>
+                            <input type="text" id="datepicker" name="birthdate" required value="<?= $birthdate?>">
                             <br><span class="form-error"><?= $birthdateErr;?></span>
                         </p>
                         <p>
@@ -393,7 +404,7 @@
             g.src='//www.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));
         </script>
-        <script>
+        <!-- <script>
             $(function() {
                 $("#datepicker").datepicker({
                     defaultDate: "-20y",
@@ -406,6 +417,6 @@
                 });
                 $( "#datepicker" ).datepicker( "option", "altFormat", "yy-mm-dd" );
             } );
-        </script>
+        </script> -->
     </body>
 </html>

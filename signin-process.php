@@ -19,7 +19,7 @@
                 }
                 else {
                     $_SESSION['loggeduser'] = $usr;
-                    header('Location: profile.php');
+                    header('Location: shopping-cart.php');
                     if(isset($_POST['remeber'])) {
                         setcookie('email', $usr->email, time()+(60*60*24*30));
                     }

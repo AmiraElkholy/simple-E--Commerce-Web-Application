@@ -151,28 +151,33 @@ class user{
         }
     }
 
-    /*function update() {
+    function update() {
         require 'config.php';
 
-        $query = "update users set username=?, pass=?, email=? where id=?";
+        $query = "update user set name=?, email=?, password=?, birthdate=?, job=?, address=?, creditlimit=? where iduser=? and isdeleted != 1";
 
         $stmt = $mysqli->prepare($query);
 
-        $id = $this->id;
-        $username = $this->username;
-        $pass = $this->pass;
+        $iduser = $this->iduser;
+        $name = $this->name;
         $email = $this->email;
+        $password = $this->password;
+        $birthdate = $this->birthdate;
+        $job = $this->job;
+        $address = $this->address;
+        $creditlimit = $this->creditlimit;
+        
 
-        $stmt->bind_param('sssi', $username, $pass, $email, $id);
+        $stmt->bind_param('sssssssi', $name, $email, $password, $birthdate, $job, $address, $creditlimit, $iduser);
 
         $stmt->execute();
 
-        $query = "select * from users where id = ?";
-        $stmt = $mysqli->prepare($query);
-        $stmt->bind_param('i', $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $obj = $result->fetch_object();
+        // $query = "select * from users where id = ?";
+        // $stmt = $mysqli->prepare($query);
+        // $stmt->bind_param('i', $id);
+        // $stmt->execute();
+        // $result = $stmt->get_result();
+        // $obj = $result->fetch_object();
         
 
         if($stmt->affected_rows > 0) {
@@ -182,7 +187,7 @@ class user{
         else {
             return false;
         }
-    }*/
+    }
 
     function selectAll() {
         require 'config.php';
