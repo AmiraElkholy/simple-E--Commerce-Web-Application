@@ -26,7 +26,6 @@ class product{
         $this->$attr = $value; //variable variable
     }
 
-
     static function selectAll() {
         require 'config.php';
         $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.product");
@@ -36,6 +35,27 @@ class product{
             $products[]=$obj;
         }
         return $products;
+    }
+
+    static function selectbyname($name) {
+        require 'config.php';
+        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.product WHERE `name` = <?>");
+        $stmt->bind_param('s', $name);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        while($obj = $result->fetch_object('product')) {
+            $products[]=$obj;
+        }
+        return $products;
+    }
+
+    static function selectbyid($idproduct) {
+        require 'config.php';
+        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.product WHERE `idproduct` = <?>");
+        $stmt->bind_param('i', $idproduct);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $obj = $result->fetch_object('product');
     }
 
     function insert() {
@@ -61,45 +81,5 @@ class product{
         $stmt->bind_param('sdissii',$this->name,$this->price,$this->quantity,$this->description,$this->image,$this->idcategory,$this->isdeleted);
         return $stmt->execute();
     }
-
-
 //=======================================================================
-
-
-
-    static function selectbyid($idproduct) {
-        require 'config.php';
-        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.product WHERE `idproduct` = <?>");
-        $stmt->bind_param('i', $idproduct);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $obj = $result->fetch_object('product');
-    }
-
-    // function selectbyname($name) {
-    //     require 'config.php';
-    //     $query = "select * from users where username = ?";
-    //     $stmt = $mysqli->prepare($query);
-    //     $stmt->bind_param('s', $username);
-    //     $stmt->execute();
-    //     if(!$stmt) {
-    //         echo "preparation failed ".$mysqli->errno." : ".$mysqli->error."<br>";
-    //     }
-    //     $result = $stmt->get_result();
-    //     $obj = $result->fetch_object();
-    //
-    //     if($obj) {
-    //         $this->id = $obj->id;
-    //         $this->username = $obj->username;
-    //         $this->pass = $obj->pass;
-    //         $this->email = $obj->email;
-    //         return $this;
-    //     }
-    //     else {
-    //         return false;
-    //     }
-    // }
-
-}
-
- ?>
+}?>
