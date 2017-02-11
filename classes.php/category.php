@@ -74,7 +74,42 @@ class category{
             echo "preparation failed ".$mysqli->errno." : ".$mysqli->error."<br>";
             exit();
         }
-        
+        $result = $stmt->get_result();
+        $categories=[];
+        if($result) {
+            while($obj = $result->fetch_object()) {
+                array_push($categories, $obj);
+            }
+            return $categories;
+        }
+        else {
+            return false;
+        }
+        $stmt->close();
+        $mysqli->close();
+    }
+
+    // (c) Select All
+    function selectall(){
+        require 'config.php';
+        $query="select * from category where isdeleted != 1";
+        $stmt=$mysqli->prepare($query);
+        $stmt->execute();
+        if(!$stmt){
+            echo "preparation failed ".$mysqli->errno." : ".$mysqli->error."<br>";
+            exit();
+        }
+        $result = $stmt->get_result();
+        $categories=[];
+        if($result) {
+            while($obj = $result->fetch_object()) {
+                array_push($categories, $obj);
+            }
+            return $categories;
+        }
+        else {
+            return false;
+        }
         $stmt->close();
         $mysqli->close();
     }
