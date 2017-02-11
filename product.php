@@ -1,17 +1,6 @@
 <?php
-    if (isset($_POST['name'],$_POST['price'],$_POST['quantity'],$_POST['idcategory'])) {
-        require "auto_load.php";
-        @$newproduct = product::createobj($_POST['name'],floatval($_POST['price']),
-        intval($_POST['quantity']),$_POST['description'],$_POST['image'],intval($_POST['idcategory']));
-        if($newproduct->insert()){
-            echo "Product Added Successfully";
-        }
-        else{
-            echo "Failed to Add Product";
-        }
-    }
-
-
+    require "auto_load.php";
+    $product = product::selectbyname("iphone 5s");
  ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -21,7 +10,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>eCommerce - Add New Product</title>
+        <title>eCommerce - Product</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -32,6 +21,7 @@
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
+
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
@@ -80,20 +70,6 @@
                                 </li>
                             </ul>
                         </nav>
-
-                        <!--
-                        <nav class="dropdown">
-                            <ul>
-                                <li>
-                                    <a href="#"><img src="img/user-icon.gif" alt="Andrew Perkins" /> Andrew Perkins <img src="img/down-arrow.gif" alt="Andrew Perkins" /></a>
-                                    <ul>
-                                        <li><a href="#">Order History</a></li>
-                                        <li><a href="#">Wishlist</a></li>
-                                        <li><a href="#">Sign Out</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>-->
                     </div><!-- end user-menu -->
 
                     <div id="view-cart">
@@ -105,54 +81,33 @@
             <hr />
 
             <section id="main-content" class="clearfix">
-                <div id="new-account">
-                    <h1>Add New Product</h1>
+                <div id="product-image">
+                    <img src="img/products/<?=$product->image?>" alt="Product">
+                </div><!-- end product-image -->
+                <div id="product-details">
+                    <h1><?=$product->name?></h1>
+                    <p><?=$product->description?></p>
 
-                    <form action="#" method="post" enctype="multipart/form-data">
-                        <p>
-                            <label for="name">
-                                <span class="required-field">*</span> Product name
-                            </label>
-                            <input type="text" id="name" name="name" required>
-                        </p>
-                        <p>
-                            <label for="price">
-                                <span class="required-field">*</span> Product price
-                            </label>
-                            <input type="number" id="price" name="price" min="0.01" step="0.01" required><span> $</span>
-                        </p>
-                        <p>
-                            <label for="quantity">
-                                <span class="required-field">*</span> Product quantity
-                            </label>
-                            <input type="number" id="quantity" name="quantity" min="1" required>
-                        </p>
-                        <p>
-                            <label for="description">
-                                <span class="required-field">*</span> Product description
-                            </label>
-                            <textarea id="description" name="description" required  rows="6"></textarea>
-                        </p>
-                        <p>
-                            <label for="image">
-                                Product image
-                            </label>
-                            <input type="file" id="image" name="image" accept="image/jpeg,image/x-png">
-                        </p>
-                        <p>
-                            <label for="idcategory">
-                                Product category
-                            </label>
-                            <input type="text" id="idcategory" name="idcategory">
-                        </p>
+                    <hr />
 
-                        <p>Fields marked with <span class="required-field">*</span> are required.</p>
+                    <form action="#" method="post">
+                        <label for="qty">Qty:</label>
+                        <input type="text" id="qty" name="qty" value="1" maxlength="2">
 
-                        <hr />
-
-                        <input type="submit" value="ADD NEW PRODUCT" class="secondary-cart-btn">
+                        <button type="submit" class="secondary-cart-btn">
+                            <img src="img/white-cart.gif" alt="Add to Cart" />
+                             ADD TO CART
+                        </button>
                     </form>
-                </div><!-- end new-account -->
+                    <p>
+                        <a href="#"><img src="img/wish.gif" alt="Add to Wishlist" /> Add to Wishlist</a>
+                    </p>
+                </div><!-- end product-details -->
+                <div id="product-info">
+                    <p class="price">$<?=$product->price?></p>
+                    <p>Availability: <span>In Stock</span></p>
+                    <p>Product Code: <span><?=$product->idproduct?></span></p>
+                </div><!-- end product-info -->
             </section><!-- end main-content -->
 
             <hr />

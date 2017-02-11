@@ -43,10 +43,7 @@ class product{
         $stmt->bind_param('s', $name);
         $stmt->execute();
         $result = $stmt->get_result();
-        while($obj = $result->fetch_object('product')) {
-            $products[]=$obj;
-        }
-        return $products;
+        return $result->fetch_object('product');
     }
     static function selectbyid($idproduct) {
         require 'config.php';
