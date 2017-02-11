@@ -7,8 +7,9 @@ $dbname='E-Commerce';
 $mysqli = new mysqli($dbhost, $dbuser,$dbpass);
 $mysqli->select_db($dbname);
 
- 	if(!$mysqli) {
-        echo "connection failed ".$mysqli->errno." : ".$mysqli->error."<br>";
-        die;
-    }
+ if (mysqli_connect_errno()) {
+    printf("Connect failed: %s", mysqli_connect_error());
+    exit();
+}
+
  ?>

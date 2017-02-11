@@ -44,9 +44,9 @@ class user{
         $stmt->execute();
 
         if($stmt->affected_rows > 0) {
-            $this->id=$stmt->insert_id;
-            $this->isadmin = $stmt->isadmin;
-            $this->isdeleted = $stmt->isdeleted;
+            $this->iduser=$stmt->insert_id;
+            $this->isadmin = 0; //isadmin??
+            $this->isdeleted = 0;
             return $this;
         }
         else {
@@ -57,13 +57,13 @@ class user{
     function delete() {
         require 'config.php';
     
-        $query = "delete from users where id = ?";
+        $query = "update user set isdeleted = 1 where iduser = ? and isdeleted != 1 and name != 'admin'";
 
         $stmt = $mysqli->prepare($query);
 
-        $id = $this->id;
+        $iduser = $this->iduser;
 
-        $stmt->bind_param('i', $id);
+        $stmt->bind_param('i', $iduser);
 
         $stmt->execute();
 
@@ -79,14 +79,14 @@ class user{
         }
     }
 
-    function selectbyid($id) {
+    function selectbyid($iduser) {
         require 'config.php';
 
-        $query = "select * from users where id = ?";
+        $query = "select * from user where iduser = ? and isdeleted != 1";
 
         $stmt = $mysqli->prepare($query);
 
-        $stmt->bind_param('i', $id);
+        $stmt->bind_param('i', $iduser);
 
         $stmt->execute();
 
@@ -98,10 +98,16 @@ class user{
         $obj = $result->fetch_object();
 
         if($obj) {
-            $this->id = $obj->id;
-            $this->username = $obj->username;
-            $this->pass = $obj->pass;
+            $this->iduser = $obj->iduser;
+            $this->name = $obj->name;
             $this->email = $obj->email;
+            $this->password = $obj->password;
+            $this->birthdate = $obj->birthdate;
+            $this->job = $obj->job;
+            $this->address = $obj->address;
+            $this->creditlimit = $obj->creditlimit;
+            $this->isadmin = $obj->isadmin;
+            $this->isdeleted = $obj->isdeleted;
             return $this;
         }
         else {
@@ -109,14 +115,14 @@ class user{
         }
     }
 
-    function selectbyname($username) {
+    function selectbyemail($email) {
         require 'config.php';
 
-        $query = "select * from users where username = ?";
+        $query = "select * from user where email = ? and isdeleted != 1";
 
         $stmt = $mysqli->prepare($query);
 
-        $stmt->bind_param('s', $username);
+        $stmt->bind_param('s', $email);
 
         $stmt->execute();
 
@@ -128,10 +134,16 @@ class user{
         $obj = $result->fetch_object();
 
         if($obj) {
-            $this->id = $obj->id;
-            $this->username = $obj->username;
-            $this->pass = $obj->pass;
+            $this->iduser = $obj->iduser;
+            $this->name = $obj->name;
             $this->email = $obj->email;
+            $this->password = $obj->password;
+            $this->birthdate = $obj->birthdate;
+            $this->job = $obj->job;
+            $this->address = $obj->address;
+            $this->creditlimit = $obj->creditlimit;
+            $this->isadmin = $obj->isadmin;
+            $this->isdeleted = $obj->isdeleted;
             return $this;
         }
         else {
@@ -139,7 +151,7 @@ class user{
         }
     }
 
-    function update() {
+    /*function update() {
         require 'config.php';
 
         $query = "update users set username=?, pass=?, email=? where id=?";
@@ -170,12 +182,12 @@ class user{
         else {
             return false;
         }
-    }
+    }*/
 
     function selectAll() {
         require 'config.php';
 
-        $query = "select * from users";
+        $query = "select * from user where isdeleted != 1";
         $stmt = $mysqli->prepare($query);
 
         if(!$stmt){
@@ -201,17 +213,17 @@ class user{
     function login() {
         require 'config.php';
 
-        $query = "select * from users where username = ? and pass = ?";
+        $query = "select * from user where email = ? and password = ? and isdeleted != 1";
 
         $stmt = $mysqli->prepare($query);
         if(!$stmt) {
             echo "preparation failed ".$mysqli->errno." : ".$mysqli->error."<br>";
         }
 
-        $username = $this->username;
-        $pass =  $this->pass;
+        $email = $this->email;
+        $password =  $this->password;
 
-        $stmt->bind_param('ss', $username, $pass);
+        $stmt->bind_param('ss', $email, $password);
         
         $stmt->execute();
 
@@ -219,10 +231,16 @@ class user{
         $obj = $result->fetch_object('user');
 
         if($obj){
-            $this->id = $obj->id;
-            $this->username = $obj->username;
-            $this->pass = $obj->pass;
+            $this->iduser = $obj->iduser;
+            $this->name = $obj->name;
             $this->email = $obj->email;
+            $this->password = $obj->password;
+            $this->birthdate = $obj->birthdate;
+            $this->job = $obj->job;
+            $this->address = $obj->address;
+            $this->creditlimit = $obj->creditlimit;
+            $this->isadmin = $obj->isadmin;
+            $this->isdeleted = $obj->isdeleted;
             return $this;
         }
         else {

@@ -1,66 +1,39 @@
 <?php 
-    require_once 'auto_load.php';
-    
+    require_once 'auto_load.php'; 
+    session_start();
 
+    
     if(isset($_GET['error'])) {
         echo "<p class='error'>".$_GET['error']."</p>";
     }
-
-    if($_POST) {
-
-        $user = new user();
-
-        if(isset($_POST['name'])&&!empty($_POST['name']))
-            $user->name = $_POST['name'];
-        else {
-            header('Location: new-account.php?error=name cant be empty');
-        }
-        if(isset($_POST['email'])&&!empty($_POST['email']))
-            $user->email = $_POST['email'];
-        else {
-            header('Location: new-account.php?error=email cant be empty');
-        }
-        if(isset($_POST['password'])&&!empty($_POST['password']))
-            $user->password = sha1($_POST['password']);
-        else {
-            header('Location: new-account.php?error=password cant be empty');
-        }
-        if(isset($_POST['birthdate'])&&!empty($_POST['birthdate'])) {
-            $user->birthdate = $_POST['birthdate'];
-            // var_dump($_POST['birthdate']);
-            // exit;
-        }
-        else {
-            header('Location: new-account.php?error=birthdate cant be empty');
-        }
-        if(isset($_POST['job'])&&!empty($_POST['job']))
-            $user->job = $_POST['job'];
-        else {
-            $user->job = null;
-        }
-        if(isset($_POST['address'])&&!empty($_POST['address']))
-            $user->address = $_POST['address'];
-        else {
-            $user->address = null;
-        }
-        if(isset($_POST['creditlimit'])&&!empty($_POST['creditlimit']))
-            $user->creditlimit = $_POST['creditlimit'];
-        else {
-            header('Location: new-account.php?error=creditlimit cant be empty');
-        }
-
-        $state = $user->insert();
-
-        if($state) {
-            //echo "success";
-            header('Location: signin.php');
-        }
-        else {
-            header('Location: new-account.php?error=failed to create new user');
-        }
+    if(isset($_GET['message'])) {
+        echo "<p class='message'>".$_GET['message']."</p>";
     }
 
+    if(isset($_SESSION['loggeduser'])||isset($_COOKIES['email'])) {
+        if(isset($_COOKIES['email'])) {
+            $usr = new user();
+            $user = $usr->selectbyemail($_COOKIES['email']);
+            $_SESSION['loggeduser'] = $user;
+
+        } 
+        else {
+            $user = $_SESSION['loggeduser'];
+        }
+        if($user->isadmin == 1) {
+            header('Location: users-list.php');
+        }
+        else {
+            header('Location: profile.php');
+        }
+    }
+  
+
 ?>
+
+
+
+
 
 
 <!DOCTYPE html>
@@ -71,7 +44,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>eCommerce - Create New Account</title>
+        <title>eCommerce - Sign In</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -82,10 +55,9 @@
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
-    <!--[if lt IE 7]>
-        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-    <![endif]-->
-
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
 
         <div id="wrapper">
             <header>
@@ -125,8 +97,8 @@
                                 <li>
                                     <a href="#"><img src="img/user-icon.gif" alt="Sign In" /> Sign In <img src="img/down-arrow.gif" alt="Sign In" /></a>
                                     <ul>
-                                        <li><a href="signin.php">Sign In</a></li>
-                                        <li><a href="#">Sign Up</a></li>
+                                        <li><a href="#">Sign In</a></li>
+                                        <li><a href="new-account.php">Sign Up</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -153,70 +125,36 @@
                 </section><!-- end action-bar -->
             </header>
 
-            <hr />
+            <section id="signin-form">
+                <h1>I have an account</h1>
+                <form action="signin-process.php" method="post">
+                    <p>
+                        <img src="img/email.gif" alt="Email Address">
+                        <input type="email" name="email" placeholder="Email Address">
+                    </p>
+                    <p>
+                        <img src="img/password.gif" alt="Password">
+                        <input type="password" name="password" placeholder="******">
+                    </p>
+                    <p>
+                        <label for="remeber" class="check-label">
+                            <input type="checkbox" name="remeber" id="remeber">
+                            Remember me
+                        </label>
+                    </p>
 
-            <section id="main-content" class="clearfix">
-                <div id="new-account">
-                    <h1>Create New Account</h1>
+                    <button type="submit" class="secondary-cart-btn">
+                        SIGN IN
+                    </button>
+                </form>
+            </section><!-- end signin-form -->
+            <section id="signup">
+                <h2>I'm a new customer</h2>
+                <h3>You can create an account in just a few simple steps.<br>
+                    Click below to begin.</h3>
 
-                    <form action="new-account.php" method="post">
-                        <p>
-                            <label for="name">
-                                <span class="required-field">*</span> NAME:
-                            </label>
-                            <input type="text" id="name" name="name" required>
-                        </p>
-                        <p>
-                            <label for="email">
-                                <span class="required-field">*</span> EMAIL:
-                            </label>
-                            <input type="email" id="email" name="email" required>
-                        </p>
-                        <p>
-                            <label for="password">
-                                <span class="required-field">*</span> PASSWORD:
-                            </label>
-                            <input type="password" id="password" name="password" required>
-                        </p>
-                        <!-- <p>
-                            <label for="password_confirmation">
-                                <span class="required-field">*</span> CONFIRM PASSWORD:
-                            </label>
-                            <input type="password" id="password_confirmation" name="password_confirmation" required>
-                        </p> -->
-                        <p>
-                            <label for="birthdate">
-                                <span class="required-field">*</span> BIRTHDATE:
-                            </label>
-                            <input type="date" placeholder="mm/dd/yyyy" id="birthdate" name="birthdate" required>
-                        </p>
-                        <p>
-                            <label for="job">
-                                <span class="required-field">*</span> JOB:
-                            </label>
-                            <input id="job" name="job"> 
-                        </p>
-                        <p>
-                            <label for="address">
-                                <span class="required-field">*</span> ADDRESS:
-                            </label>
-                            <textarea id="address" name="address"></textarea>
-                        </p>
-                        <p>
-                            <label for="creditlimit">
-                                <span class="required-field">*</span> CREDIT LIMIT:
-                            </label>
-                            <input type="number" min="100" step="100" value="100" id="creditlimit" name="creditlimit" required>
-                        </p>
-
-                        <p>Fields marked with <span class="required-field">*</span> are required.</p>
-
-                        <hr />
-
-                        <input type="submit" value="CREATE NEW ACCOUNT" class="secondary-cart-btn">
-                    </form>
-                </div><!-- end new-account -->
-            </section><!-- end main-content -->
+                <a href="new-account.php" class="default-btn">CREATE NEW ACCOUNT</a>
+            </section><!--- end signup -->
 
             <hr />
 
