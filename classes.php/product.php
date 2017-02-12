@@ -29,7 +29,7 @@ class product{
     }
     static function selectAll() {
         require 'config.php';
-        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.product");
+        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.product WHERE isdeleted = 0");
         $stmt->execute();
         $result = $stmt->get_result();
         while($obj = $result->fetch_object('product')) {
@@ -39,7 +39,8 @@ class product{
     }
     static function selectbyname($name) {
         require 'config.php';
-        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.product WHERE `name` = ?");
+        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.product
+            WHERE `name` = ? AND isdeleted = 0");
         $stmt->bind_param('s', $name);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -47,7 +48,8 @@ class product{
     }
     static function selectbyid($idproduct) {
         require 'config.php';
-        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.product WHERE `idproduct` = ?");
+        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.product
+            WHERE `idproduct` = ? AND isdeleted = 0");
         $stmt->bind_param('i', $idproduct);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -55,8 +57,10 @@ class product{
     }
     function insert() {
         require 'config.php';
-        $stmt = $mysqli->prepare("INSERT INTO `E-Commerce`.`product` VALUES(null,?,?,?,?,?,?,?)");
-        $stmt->bind_param('sdissii',$this->name,$this->price,$this->quantity,$this->description,$this->image,$this->idcategory,$this->isdeleted);
+        $stmt = $mysqli->prepare("INSERT INTO `E-Commerce`.`product`
+            VALUES(null,?,?,?,?,?,?,?)");
+        $stmt->bind_param('sdissii',$this->name,$this->price,$this->quantity,
+            $this->description,$this->image,$this->idcategory,$this->isdeleted);
         return $stmt->execute();
     }
     function update() {
@@ -72,7 +76,8 @@ class product{
             `isdeleted` = ?
             WHERE `idproduct` = $this->idproduct
             ");
-        $stmt->bind_param('sdissii',$this->name,$this->price,$this->quantity,$this->description,$this->image,$this->idcategory,$this->isdeleted);
+        $stmt->bind_param('sdissii',$this->name,$this->price,$this->quantity,
+            $this->description,$this->image,$this->idcategory,$this->isdeleted);
         return $stmt->execute();
     }
 }?>
