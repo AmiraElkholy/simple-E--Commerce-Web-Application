@@ -153,9 +153,11 @@ class category{
         }
         if($stmt->affected_rows>0){
             echo "Category was successfully deleted";
+            return true;
         }
         else{
             echo "Category delete failed";
+            return false;
             exit();
         }
         $stmt->close();
