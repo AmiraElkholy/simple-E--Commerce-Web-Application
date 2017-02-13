@@ -1,16 +1,24 @@
 <?php
-    if (isset($_POST['name'],$_POST['price'],$_POST['quantity'],$_POST['idcategory'])) {
-        require "auto_load.php";
-        @$newproduct = product::createobj($_POST['name'],floatval($_POST['price']),
-        intval($_POST['quantity']),$_POST['description'],$_POST['image'],intval($_POST['idcategory']));
-        if($newproduct->insert()){
-            echo "Product Added Successfully";
-        }
-        else{
-            echo "Failed to Add Product";
-        }
-    }
+    require "auto_load.php";
 
+    if (isset($_POST['name'],$_POST['price'],$_POST['quantity'],
+        $_POST['description'],$_POST['idcategory'],$_FILES['image'])) {
+
+            product::imageUpHandle();
+
+        //
+        //
+        // @$newproduct = product::createobj($_POST['name'],floatval($_POST['price']),
+        //     intval($_POST['quantity']),$_POST['description'],
+        //     $_POST['image'],intval($_POST['idcategory']));
+        //
+        // if($newproduct->insert()){
+        //     echo "<p class='message'> Product Added Successfully </p>";
+        // }
+        // else{
+        //     echo "<p class='error'>Failed to Add Product</p>";
+        // }
+    }
 
  ?>
 <!DOCTYPE html>
@@ -133,6 +141,7 @@
                             </label>
                             <textarea id="description" name="description" required  rows="6"></textarea>
                         </p>
+                        <input type=”hidden” name=”MAX_FILE_SIZE” value=” 5000000”>
                         <p>
                             <label for="image">
                                 Product image
@@ -141,9 +150,9 @@
                         </p>
                         <p>
                             <label for="idcategory">
-                                Product category
+                                <span class="required-field">*</span>Product category
                             </label>
-                            <input type="text" id="idcategory" name="idcategory">
+                            <input type="text" id="idcategory" name="idcategory" required>
                         </p>
 
                         <p>Fields marked with <span class="required-field">*</span> are required.</p>
