@@ -89,23 +89,29 @@
                     <p><?=$product->description?></p>
 
                     <hr />
+                    <?php if($product->quantity > 0) echo '
+                        <form action="#" method="post">
+                            <label for="qty">Qty:</label>
+                            <input type="text" id="qty" name="qty" value="1" maxlength="2">
 
-                    <form action="#" method="post">
-                        <label for="qty">Qty:</label>
-                        <input type="text" id="qty" name="qty" value="1" maxlength="2">
-
-                        <button type="submit" class="secondary-cart-btn">
-                            <img src="img/white-cart.gif" alt="Add to Cart" />
-                             ADD TO CART
-                        </button>
-                    </form>
+                            <button type="submit" class="secondary-cart-btn">
+                                <img src="img/white-cart.gif" alt="Add to Cart" />
+                                 ADD TO CART
+                            </button>
+                        </form>';
+                     ?>
                     <p>
                         <a href="#"><img src="img/wish.gif" alt="Add to Wishlist" /> Add to Wishlist</a>
                     </p>
                 </div><!-- end product-details -->
                 <div id="product-info">
                     <p class="price">$<?=$product->price?></p>
-                    <p>Availability: <span>In Stock</span></p>
+                    <p>Availability:
+                        <?php
+                            if($product->quantity > 0)echo "<span>In Stock</span>";
+                            else echo "<span>Out of Stock</span>";
+                        ?>
+                    </p>
                     <p>Product Code: <span><?=$product->idproduct?></span></p>
                 </div><!-- end product-info -->
             </section><!-- end main-content -->

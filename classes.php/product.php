@@ -55,6 +55,33 @@ class product{
         $result = $stmt->get_result();
         return $result->fetch_object('product');
     }
+    function insert() {
+        require 'config.php';
+        $stmt = $mysqli->prepare("INSERT INTO `E-Commerce`.`product`
+        VALUES(null,?,?,?,?,?,?,?)");
+        $stmt->bind_param('sdissii',$this->name,$this->price,$this->quantity,
+        $this->description,$this->image,$this->idcategory,$this->isdeleted);
+        return $stmt->execute();
+    }
+    function update() {
+        require 'config.php';
+        $stmt = $mysqli->prepare("UPDATE `E-Commerce`.`product`
+            SET
+            `name` = ?,
+            `price` = ?,
+            `quantity` = ?,
+            `description` = ?,
+            `image` = ?,
+            `idcategory` = ?,
+            `isdeleted` = ?
+            WHERE `idproduct` = $this->idproduct
+            ");
+        $stmt->bind_param('sdissii',$this->name,$this->price,$this->quantity,
+        $this->description,$this->image,$this->idcategory,$this->isdeleted);
+        return $stmt->execute();
+    }
+    //==========================================================================
+    //Controller methods
     static public function imageUpHandle(){
         if ($_FILES['image']['error']>0) {
             echo "problem";
@@ -96,31 +123,25 @@ class product{
             echo $_FILES["image"]["name"];
             exit;
         }
-        echo "File uploaded successfully<br><br>";
+        return true;
     }
-    function insert() {
-        require 'config.php';
-        $stmt = $mysqli->prepare("INSERT INTO `E-Commerce`.`product`
-        VALUES(null,?,?,?,?,?,?,?)");
-        $stmt->bind_param('sdissii',$this->name,$this->price,$this->quantity,
-        $this->description,$this->image,$this->idcategory,$this->isdeleted);
-        return $stmt->execute();
-    }
-    function update() {
-        require 'config.php';
-        $stmt = $mysqli->prepare("UPDATE `E-Commerce`.`product`
-            SET
-            `name` = ?,
-            `price` = ?,
-            `quantity` = ?,
-            `description` = ?,
-            `image` = ?,
-            `idcategory` = ?,
-            `isdeleted` = ?
-            WHERE `idproduct` = $this->idproduct
-            ");
-        $stmt->bind_param('sdissii',$this->name,$this->price,$this->quantity,
-        $this->description,$this->image,$this->idcategory,$this->isdeleted);
-        return $stmt->execute();
+    static public function addNewProduct(){
+        if (isset($_POST['name'],$_POST['price'],$_POST['quantity'],
+            $_POST['description'],$_POST['idcategory'],$_FILES['image'])) {
+
+            if(product::imageUpHandle()){
+                @$newproduct = product::createobj($_POST['name'],floatval($_POST['price']),
+                intval($_POST['quantity']),$_POST['description'],
+                $_FILES['image']['name'],intval($_POST['idcategory']));
+
+                if($newproduct->insert()){
+                    echo "<p class='message'> Product Added Successfully </p>";
+                }
+                else{
+                    echo "<p class='error'>Failed to Add Product</p>";
+                }
+            }
+            else echo "<p class='error'>Failed to Upload Product image</p>";
+        }
     }
 }?>

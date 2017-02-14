@@ -1,22 +1,6 @@
 <?php
     require "auto_load.php";
-
-    if (isset($_POST['name'],$_POST['price'],$_POST['quantity'],
-        $_POST['description'],$_POST['idcategory'],$_FILES['image'])) {
-
-            // product::imageUpHandle();
-        @$newproduct = product::createobj($_POST['name'],floatval($_POST['price']),
-            intval($_POST['quantity']),$_POST['description'],
-            $_POST['image'],intval($_POST['idcategory']));
-
-        if($newproduct->insert()){
-            echo "<p class='message'> Product Added Successfully </p>";
-        }
-        else{
-            echo "<p class='error'>Failed to Add Product</p>";
-        }
-    }
-
+    product::addNewProduct();
  ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
