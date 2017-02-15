@@ -132,7 +132,7 @@ class category{
     // (e) Select independent Categories (Categories with no supercategory)
     function selectind(){
         require 'config.php';
-        $query="select * from category where idsupercategory IS NULL and isdeleted!=1";
+        $query="select * from category where idsupercategory IS NULL and isdeleted!=1 and idcategory not in(select idsupercategory from category where idsupercategory is NOT NULL)";
         $stmt=$mysqli->prepare($query);
         $stmt->execute();
         if(!$stmt){
