@@ -1,18 +1,3 @@
-<?php
-    if (isset($_POST['category'])) {
-        require "auto_load.php";
-        $cat=new category();
-        $cat->name=$_POST['category'];
-        //$cat->idsupercategory=$_POST['id'];
-        if($cat->insert()){
-            echo "Category was successfully inserted";
-        }
-        else{
-            echo "Category insertion failed";
-        }
-    }
-?>
-
     <!DOCTYPE html>
     <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
     <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -124,20 +109,10 @@
                     $cat=new category();
                     $sup=$cat->selectsup();
                     ?>
-                        <form method="post" action="#">
+                        <form method="post" action="control-add-category.php">
                             <label for="category">Category: </label>
                             <input type="text" name="category" required>
-                            <!--<label for="parent" style="padding-left:50px;">Parent Category: </label>
-                            <select name="parent">
-                        <option selected>Select Parent Category</option>
-                        <?php
-                        foreach($sup as $sp){
-                            echo '<option>'.$sp->name.'</option>';
-                            echo '<input type="hidden" name="id" value="'.$sp->idcategory.'">';
-                        }
-                        ?>
-                        </select>
-                            --></br></br>
+                            </br></br>
                             <input type="submit" class="secondary-cart-btn">
                         </form>
                         </br>
