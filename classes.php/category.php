@@ -132,6 +132,33 @@ class category{
     // (e) Select independent Categories (Categories with no supercategory)
     function selectind(){
         require 'config.php';
+        $query="select * from category where idsupercategory IS NULL and isdeleted!=1";
+        $stmt=$mysqli->prepare($query);
+        $stmt->execute();
+        if(!$stmt){
+            echo "preparation failed ".$mysqli->errno." : ".$mysqli->error."<br>";
+            exit();
+        }
+        $result = $stmt->get_result();
+        $categories=[];
+        if($result) {
+            while($obj = $result->fetch_object()) {
+                array_push($categories, $obj);
+            }
+            return $categories;
+        }
+        else {
+            return false;
+        }
+        $stmt->close();
+        $mysqli->close();
+    }
+
+
+
+    // (f) Select independent Categories (Categories with no supercategory nor subcategories)
+    function selectind2(){
+        require 'config.php';
         $query="select * from category where idsupercategory IS NULL and isdeleted!=1 and idcategory not in(select idsupercategory from category where idsupercategory is NOT NULL)";
         $stmt=$mysqli->prepare($query);
         $stmt->execute();
