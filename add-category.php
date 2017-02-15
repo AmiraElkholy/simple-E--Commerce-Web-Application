@@ -1,11 +1,12 @@
-    <!DOCTYPE html>
-    <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-    <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-    <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-    <!--[if gt IE 8]><!-->
-    <html class="no-js">
-    <!--<![endif]-->
+ <?php
+    require_once 'isadmin.php';
+?>
 
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -19,84 +20,15 @@
         <link rel="stylesheet" href="css/main.css">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
-
     <body>
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
 
         <div id="wrapper">
-            <header>
-                <section id="top-area">
-                    <p>Phone orders: 1-800-0000 | Email us: <a href="mailto:office@shop.com">office@shop.com</a></p>
-                </section>
-                <!-- end top-area -->
-                <section id="action-bar">
-                    <div id="logo">
-                        <a href="#"><span id="logo-accent">e</span>Commerce</a>
-                    </div>
-                    <!-- end logo -->
-
-                    <nav class="dropdown">
-                        <ul>
-                            <li>
-                                <a href="#">Shop by Category <img src="img/down-arrow.gif" alt="Shop by Category" /></a>
-                                <ul>
-                                    <li><a href="#">Laptops</a></li>
-                                    <li><a href="#">Desktop PC</a></li>
-                                    <li><a href="#">Smartphones</a></li>
-                                    <li><a href="#">Tablets</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
-
-                    <div id="search-form">
-                        <form action="#" method="get">
-                            <input type="search" name="search" placeholder="Search by keyword" class="search">
-                            <input type="submit" value="Search" class="search submit">
-                        </form>
-                    </div>
-                    <!-- end search-form -->
-
-                    <div id="user-menu">
-
-                        <nav id="signin" class="dropdown">
-                            <ul>
-                                <li>
-                                    <a href="#"><img src="img/user-icon.gif" alt="Sign In" /> Sign In <img src="img/down-arrow.gif" alt="Sign In" /></a>
-                                    <ul>
-                                        <li><a href="#">Sign In</a></li>
-                                        <li><a href="#">Sign Up</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
-
-                        <!--
-                        <nav class="dropdown">
-                            <ul>
-                                <li>
-                                    <a href="#"><img src="img/user-icon.gif" alt="Andrew Perkins" /> Andrew Perkins <img src="img/down-arrow.gif" alt="Andrew Perkins" /></a>
-                                    <ul>
-                                        <li><a href="#">Order History</a></li>
-                                        <li><a href="#">Wishlist</a></li>
-                                        <li><a href="#">Sign Out</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>-->
-                    </div>
-                    <!-- end user-menu -->
-
-                    <div id="view-cart">
-                        <a href="#"><img src="img/blue-cart.gif" alt="View Cart"> View Cart</a>
-                    </div>
-                    <!-- end view-cart -->
-                </section>
-                <!-- end action-bar -->
-            </header>
-
+            <?php
+                require_once 'header.php'
+            ?>
             <hr />
 
             <section id="main-content" class="clearfix">
