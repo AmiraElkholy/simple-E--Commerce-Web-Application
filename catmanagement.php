@@ -98,17 +98,23 @@
                     $cat=new category();
                     $sup=$cat->selectsup(); 
                     foreach($sup as $sp){
-                        echo "<ul><h4>".$sp->name."</h4><a href=add-subcategory.php?id=".$sp->idcategory."&name=".$sp->name.">Add Subcategory</a>   <a href=delete-category.php?id=".$sp->idcategory.">delete</a>";
+                        echo "<ul><h4>".$sp->name."</h4><a href=add-subcategory.php?id=".$sp->idcategory."&name=".$sp->name.">Add Subcategory</a>
+                                                        <a href=update-category.php?id=".$sp->idcategory."&name=".$sp->name."&super=".$sp->idsupercategory.">update</a>
+                                                        <a href=control-delete-category.php?id=".$sp->idcategory.">delete</a>";
                         $sub=$cat->selectcatbysupid($sp->idcategory);
                         foreach($sub as $sb){
-                            echo "<li>".$sb->name."</li><a href=delete-category.php?id=".$sp->idcategory.">delete</a>";
+                            echo "<li>".$sb->name."</li><a href=update-category.php?id=".$sb->idcategory."&name=".$sb->name."&super=".$sb->idsupercategory.">update</a>
+                                                        <a href=control-delete-category.php?id=".$sb->idcategory.">delete</a>";
                         }
                         echo "</ul></br>";
                     }
                     $ind=$cat->selectind();
                     foreach($ind as $in){
-                        echo "<h4>".$in->name."</h4><a href=add-subcategory.php?id=".$sp->idcategory."&name=".$sp->name.">Add Subcategory</a>   <a href=delete-category.php?id=".$sp->idcategory.">delete</a>";
+                        echo "<h4>".$in->name."</h4><a href=add-subcategory.php?id=".$in->idcategory."&name=".$in->name.">Add Subcategory</a>
+                                                    <a href=update-category.php?id=".$in->idcategory."&name=".$in->name."&super=".$in->idsupercategory.">update</a>
+                                                    <a href=control-delete-category.php?id=".$in->idcategory.">delete</a>";
                     }
+                    
                     
                     ?>
                     
