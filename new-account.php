@@ -1,15 +1,19 @@
 <?php 
     require_once 'auto_load.php';
     
-
     if(isset($_GET['error'])) {
         echo "<p class='error'>".$_GET['error']."</p>";
     }
 
     // define variables and set to empty values for valiation
-    $nameErr = $emailErr = $passwordErr = $passwordconfirmErr = $birthdateErr = $jobErr = $addressErr = $creditlimitErr = "";
-    $name = $email = $password = $passwordconfirm = $birthdate = $job = $address = $creditlimit = "";
-    $nameValid = $emailValid = $passwordValid = $passwordconfirmValid = $birthdateValid = $jobValid = $addressValid = $creditlimitValid = false;
+    $nameErr = $emailErr = $passwordErr = $passwordconfirmErr = $birthdateErr = $jobErr = $addressErr = $interestsErr = $creditlimitErr = "";
+    $name = $email = $password = $passwordconfirm = $birthdate = $job = $address = "";
+    $creditlimit = 100;
+    $nameValid = $emailValid = $passwordValid = $passwordconfirmValid = $birthdateValid = $jobValid = $addressValid = $interestsValid = $creditlimitValid = false;
+
+
+    $interests = user::getInterestsList();
+
 
     if($_POST) {
 
@@ -120,6 +124,20 @@
         }
 
 
+        //validate interests
+        @$user_interests = $_POST['interests'];
+        if((count($user_interests)>0)) {
+            $interestsValid = true;
+            // echo "<pre>";
+            // var_dump($_POST);
+            // echo "</pre>";
+            // die();
+        }
+        else {
+            $interestsErr = "* interests are required";
+        }
+
+
         //validate creditlimit
         if(isset($_POST['creditlimit'])&&!empty($_POST['creditlimit'])) {
             $creditlimit = test_input($_POST['creditlimit']);
@@ -136,7 +154,7 @@
 
 
         //if all fields are valid
-        if($nameValid && $emailValid && $passwordValid && $passwordconfirmValid && $birthdateValid && $jobValid && $addressValid && $creditlimitValid) {
+        if($nameValid && $emailValid && $passwordValid && $passwordconfirmValid && $birthdateValid && $jobValid && $addressValid && $interestsValid && $creditlimitValid) {
             
             $user = new user();
 
@@ -147,6 +165,7 @@
             $user->job = $job;
             $user->address = $address;
             $user->creditlimit = $creditlimit;
+            $user->userinterests = $user_interests;
 
             $state = $user->insert();
 
@@ -251,7 +270,7 @@
                 <div id="new-account">
                     <h1>Create New Account</h1>
 
-                    <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+                    <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" novalidate>
                         <p>
                             <label for="name">
                                 <span class="required-field">*</span> NAME:
@@ -284,7 +303,7 @@
                             <label for="birthdate">
                                 <span class="required-field">*</span> BIRTHDATE:
                             </label>
-                            <input type="text" id="datepicker" name="birthdate" required>
+                            <input type="text" id="datepicker" name="birthdate" required value="<?= $birthdate ?>">
                             <br><span class="form-error"><?= $birthdateErr;?></span>
                         </p>
                         <p>
@@ -301,6 +320,24 @@
                             <textarea id="address" name="address" required><?= $address ?></textarea>
                             <br><span class="form-error"><?= $addressErr;?></span>
                         </p>
+                        <?php if($interests): ?>
+                        <p>
+                            <label>
+                                <span class="required-field">*</span> INTERESTS:
+                            </label>
+                            <?php foreach($interests as $interest): ?> 
+                                <label class="check-label">
+                                    <input type="checkbox" name="interests[]" id="interests[]" value="<?= $interest->idcategory ?>">
+                                    <?= $interest->name ?>
+                                </label>
+
+                            <?php endforeach; ?>
+                            <span class="form-error"><?= $interestsErr;?></span>
+                            <br>
+                        </p>
+                        <?php endif; ?>
+
+
                         <p>
                             <label for="creditlimit">
                                 <span class="required-field">*</span> CREDIT LIMIT:

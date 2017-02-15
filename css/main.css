@@ -477,7 +477,8 @@ header a:link, header a:visited {
 }
 
 #categories-menu ul,
-#my-account-menu ul {
+#my-account-menu ul,
+#admin-panel ul {
     margin-left: 20px;
     list-style-image: url(../img/right-arrow.gif);
 }

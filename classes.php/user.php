@@ -10,6 +10,7 @@ class user{
 	private $creditlimit;
 	private $isadmin;
 	private $isdeleted;
+    private $userinterests;
 
 
     function __get($name){
@@ -46,8 +47,9 @@ class user{
         $job = $this->job;
         $address = $this->address;
         $creditlimit = $this->creditlimit;
+        $userinterests = $this->userinterests;
 
-        $stmt->bind_param('sssssss', $email, $password, $name, $birthdate, $job, $address, $creditlimit);
+        $stmt->bind_param('ssssssi', $email, $password, $name, $birthdate, $job, $address, $creditlimit);
 
         $stmt->execute();
 
@@ -55,6 +57,19 @@ class user{
             $this->iduser=$stmt->insert_id;
             $this->isadmin = 0; //isadmin??
             $this->isdeleted = 0;
+
+            foreach ($userinterests as $interest) {
+                $userinterest = new interest();
+                $userinterest->iduser = $stmt->insert_id;
+                $userinterest->idcategory = intval($interest);
+
+                $state = $userinterest->insert();
+
+                if(!$state) {
+                    //rollback transaction
+                    return false;
+                }
+            }
             return $this;
         }
         else {
@@ -243,7 +258,7 @@ class user{
         $result = $stmt->get_result();
         $obj = $result->fetch_object('user');
 
-        if($obj){
+        if($obj) {
             $this->iduser = $obj->iduser;
             $this->name = $obj->name;
             $this->email = $obj->email;
@@ -258,8 +273,16 @@ class user{
         }
         else {
             return false;
-        }
+        }       
     }
+
+
+    public static function getInterestsList() {
+        $cat = new category();
+        $interests = $cat->selectind();
+        return $interests;
+    }
+    
 
 
 }

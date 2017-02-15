@@ -8,6 +8,22 @@
 		
 		echo "profile.php "."hello ".$loguser->name;
 
+
+		$interest = new interest();
+		$interest->iduser = $loguser->iduser;
+		$userinterests = $interest->selectuserinterests();
+
+		$cat = new category();
+
+
+
+		echo "<ul>";
+		foreach ($userinterests as $i) {
+			# code...
+			$curcat = $cat->selectcatbyid($i->idcategory);
+			echo "<li>".$curcat[0]->name."</li>";
+		}
+		echo "</ul>";
 			
 	}
 	else {
