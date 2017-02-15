@@ -124,10 +124,10 @@
                         </p>
                         <p>
                             <label for="image">
-                                Product image
+                                <span class="required-field">*</span>Product image
                             </label>
                             <input type="hidden" name="MAX_FILE_SIZE" value="5000000">
-                            <input type="file" id="image" name="image" accept="image/jpeg" accept="image/x-png">
+                            <input type="file" id="image" name="image" accept="image/jpeg" accept="image/x-png" required>
                         </p>
                         <p>
                             <label for="idcategory">
