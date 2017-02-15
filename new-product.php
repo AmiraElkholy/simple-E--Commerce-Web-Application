@@ -122,12 +122,12 @@
                             </label>
                             <textarea id="description" name="description" required  rows="6"></textarea>
                         </p>
-                        <input type=”hidden” name=”MAX_FILE_SIZE” value=” 5000000”>
                         <p>
                             <label for="image">
                                 Product image
                             </label>
-                            <input type="file" id="image" name="image" accept="image/jpeg,image/x-png">
+                            <input type="hidden" name="MAX_FILE_SIZE" value="5000000">
+                            <input type="file" id="image" name="image" accept="image/jpeg" accept="image/x-png">
                         </p>
                         <p>
                             <label for="idcategory">
