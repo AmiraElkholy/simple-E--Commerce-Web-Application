@@ -133,7 +133,19 @@
                             <label for="idcategory">
                                 <span class="required-field">*</span>Product category
                             </label>
-                            <input type="text" id="idcategory" name="idcategory" required>
+                            <select name="idcategory">
+                            <?php
+                                $cat=new category();
+                                $sup=$cat->selectsup(); 
+                                foreach($sup as $sp){
+                                    echo "<option disabled>----".$sp->name."</option>";
+                                    $sub=$cat->selectcatbysupid($sp->idcategory);
+                                    foreach($sub as $sb){
+                                        echo "<option value=".$sb->idcategory.">".$sb->name."</option>";
+                                    }                                
+                                }
+                            ?>
+                            </select>
                         </p>
 
                         <p>Fields marked with <span class="required-field">*</span> are required.</p>
