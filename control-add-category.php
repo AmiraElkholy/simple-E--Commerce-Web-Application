@@ -3,12 +3,11 @@
         require "auto_load.php";
         $cat=new category();
         $cat->name=$_POST['category'];
-        //$cat->idsupercategory=$_POST['id'];
         if($cat->insert()){
-            header('Location:catmanagement.php');
+            header('Location:catmanagement.php?message=Category Added Successfully');
         }
         else{
-            header('Location:catmanagement.php');
+            header('Location:catmanagement.php?error=Failed to Add Category');
         }
     }
 ?>
