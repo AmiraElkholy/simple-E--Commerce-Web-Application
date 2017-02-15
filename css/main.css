@@ -524,7 +524,6 @@ header a:link, header a:visited {
     width: 200px;
     vertical-align: top;
 }
-
 #listings .product {
     margin-bottom: 30px;
     margin-right: 100px;
@@ -544,6 +543,8 @@ header a:link, header a:visited {
 
 .product img.feature {
     margin-bottom: 40px;
+    width: 240px !important;
+    height: 140px !important;
 }
 
 .product .wish a:link, .product .wish a:visited {

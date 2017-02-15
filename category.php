@@ -1,7 +1,25 @@
-<?php
+<?php  
     require_once('isuser.php');
-    $product = product::selectbyname($_GET['name']);
- ?>
+    if(isset($_GET['id'])&&!empty($_GET['id'])) {
+        //get category name from database
+        $catid = $_GET['id'];
+        $cat = new category();
+        $category = ($cat->selectcatbyid($catid))[0];
+        if(!$category) {
+            echo "failed to display category";
+            exit;
+        }
+        $products = product::selectAllbycatid($catid);
+        if(!$products) {
+
+        }
+    }
+    else {
+        echo "no category selected to display";
+        exit;
+    }
+?>
+
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -10,7 +28,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>eCommerce - Product</title>
+        <title>eCommerce - Category</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -21,51 +39,86 @@
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
-
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
 
         <div id="wrapper">
-            <?php require_once('header.php') ?>
+            <?php require_once('header.php'); ?>
+
+            <!-- <section id="promo-alt">
+                <div id="promo1">
+                    <h1>The brand new MacBook Pro</h1>
+                    <p>With a special price, <span class="bold">today only!</span></p>
+                    <a href="#" class="secondary-btn">READ MORE</a>
+                    <img src="img/macbook.png" alt="MacBook Pro">
+                </div>
+                <div id="promo2">
+                    <h2>The iPhone 5 is now<br>available in our store!</h2>
+                    <a href="">Read more <img src="img/right-arrow.gif" alt="Read more"></a>
+                    <img src="img/iphone.png" alt="iPhone">
+                </div>
+                <div id="promo3">
+                    <img src="img/thunderbolt.png" alt="Thunderbolt">
+                    <h2>The 27"<br>Thunderbolt Display.<br>Simply Stunning.</h2>
+                    <a href="#">Read more <img src="img/right-arrow.gif" alt="Read more" /></a>
+                </div>
+            </section> --><!-- promo-alt -->
+
+            <section id="main-content" class="clearfix">
+                <h2><?= $category->name ?></h2>
+                <hr>
+
+                <aside id="categories-menu">
+                    <h3>CATEGORIES</h3>
+                    <ul>
+                        <li><a href="#">Laptops</a></li>
+                        <li><a href="#">Desktop PC</a></li>
+                        <li><a href="#">Smartphones</a></li>
+                        <li><a href="#">Tablets</a></li>
+                    </ul>
+                </aside><!-- end categories-menu -->
+
+                <div id="listings">
+
+                <?php if($products): ?>
+                <?php foreach ($products as $product): ?>
+                    <div class="product">
+                        <a href="view-product.php?name=<?= $product->name ?>"><img id="productImage" src="img/products/<?= $product->image; ?>" alt="<?= $product->name ?>" class="feature"></a>
+
+                        <h3><a href="view-product.php?name=<?= $product->name ?>"><?= $product->name ?></a></h3>
+
+                        <p><?= $product->description; ?></p>
+
+
+                        <?php if($product->quantity > 0): ?>
+                        <h5>Availability: <span class="instock">In Stock</span></h5>
+                        <?php else: ?>
+                        <h5>Availability: <span class="outofstock">Out of Stock</span></h5>                            
+                        <?php endif; ?>
+
+                        <p>
+                            <a href="#" class="cart-btn">
+                                <span class="price">$<?= $product->price; ?></span>
+                                 <img src="img/white-cart.gif" alt="Add to Cart">ADD TO CART</a>
+                        </p>
+                    </div>
+                <?php endforeach; ?>
+                <?php endif; ?>
+
+                </div><!-- end listings -->
+            </section><!-- end main-content -->
 
             <hr />
 
-            <section id="main-content" class="clearfix">
-                <div id="product-image">
-                    <img src="img/products/<?=$product->image?>" alt="Product">
-                </div><!-- end product-image -->
-                <div id="product-details">
-                    <h1><?=$product->name?></h1>
-                    <p><?=$product->description?></p>
+            <!-- <section id="pagination">
+                <p>Page: 
+                    <span class="current">1</span> / 
+                    <a href="#">2</a> / 
+                    <a href="#">3</a>
+                </p>
+            </section> --><!-- end pagination -->
 
-                    <hr />
-                    <?php if($product->quantity > 0) {?>
-                        <form action="addtocart.php?product=" method="get">
-                            <label for="qty">Qty:</label>
-                            <input type="text" id="qty" name="qty" value="1" maxlength="2">
-
-                            <button type="submit" name="addtocart" class="secondary-cart-btn">
-                                <img src="img/white-cart.gif" alt="Add to Cart" />
-                                 ADD TO CART
-                            </button>
-                        </form>
-                    <?php } ?>
-                    <p>
-                        <a href="#"><img src="img/wish.gif" alt="Add to Wishlist" /> Add to Wishlist</a>
-                    </p>
-                </div><!-- end product-details -->
-                <div id="product-info">
-                    <p class="price">$<?=$product->price?></p>
-                    <p>Availability:
-                        <?php
-                            if($product->quantity > 0)echo "<span>In Stock</span>";
-                            else echo "<span>Out of Stock</span>";
-                        ?>
-                    </p>
-                    <p>Product Code: <span><?=$product->idproduct?></span></p>
-                </div><!-- end product-info -->
-            </section><!-- end main-content -->
             <hr />
 
             <footer>
@@ -76,7 +129,7 @@
                 <hr />
 
                 <section id="links">
-                    <!-- <div id="my-account">
+                    <div id="my-account">
                         <h4>MY ACCOUNT</h4>
                         <ul>
                             <li><a href="#">Sign In</a></li>
@@ -85,7 +138,7 @@
                             <li><a href="#">Order History</a></li>
                             <li><a href="#">Shopping Cart</a></li>
                         </ul>
-                    </div><!-- end my-account --> -->
+                    </div><!-- end my-account -->
                     <div id="info">
                         <h4>INFORMATION</h4>
                         <ul>

@@ -37,6 +37,17 @@ class product{
         }
         return $products;
     }
+    static function selectAllbycatid($catid) {
+        require 'config.php';
+        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.product WHERE isdeleted = 0 AND idcategory = ?");
+        $stmt->bind_param('i', $catid);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        while($obj = $result->fetch_object('product')) {
+            $products[]=$obj;
+        }
+        return $products;
+    }
     static function selectbyname($name) {
         require 'config.php';
         $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.product
