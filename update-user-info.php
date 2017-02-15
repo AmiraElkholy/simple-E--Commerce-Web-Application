@@ -171,7 +171,7 @@
                 header('Location: shopping-cart.php?message=your information updated successfully');
             }
             else {
-                header('Location: new-account.php?error=failed to update info..');
+                header("Location: shopping-cart.php?message=your information isn't changed");
             }
 
         }
@@ -246,6 +246,9 @@
                                 <li>
                                     <a href="#"><img src="img/user-icon.gif" alt="<?= $loguser->name ?>" /> <?= $loguser->name ?> <img src="img/down-arrow.gif" alt="<?= $loguser->name ?>" /></a>
                                     <ul>
+                                        <?php if($loguser->isadmin==1): ?>
+                                        <li><a href="admin-panel.php">Admin Panel</a></li>
+                                        <?php endif; ?>
                                         <li><a href="#">Update Info</a></li>
                                         <li><a href="#">Order History</a></li>
                                         <li><a href="#">Wishlist</a></li>

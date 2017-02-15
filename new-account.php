@@ -1,9 +1,16 @@
 <?php 
     require_once 'auto_load.php';
-    
+    session_start();
+
     if(isset($_GET['error'])) {
         echo "<p class='error'>".$_GET['error']."</p>";
     }
+
+    if(isset($_SESSION['loggeduser'])) {
+        header('Location: signin.php');
+        exit;
+    }
+
 
     // define variables and set to empty values for valiation
     $nameErr = $emailErr = $passwordErr = $passwordconfirmErr = $birthdateErr = $jobErr = $addressErr = $interestsErr = $creditlimitErr = "";

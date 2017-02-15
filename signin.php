@@ -21,7 +21,7 @@
         }
         //redirect user
         if($user->isadmin == 1) {
-            header('Location: users-list.php');
+            header('Location: admin-panel.php');
         }
         else {
             header('Location: shopping-cart.php');

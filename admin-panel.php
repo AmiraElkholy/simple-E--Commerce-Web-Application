@@ -1,30 +1,5 @@
 <?php  
-
-	require_once 'auto_load.php';
-	session_start();
-
-	if(isset($_GET['error'])) {
-        echo "<p class='error'>".$_GET['error']."</p>";
-    }
-
-	if(isset($_SESSION['loggeduser'])) {
-		$loguser = $_SESSION['loggeduser'];
-		
-		if($loguser->isadmin == 1) {
-			$usr = new user();
-			$users = $usr->selectAll();
-		}
-		else {
-			header('Location: signin.php?error=you are not allowed access.. ');
-			exit;
-		}		
-	}
-	else {
-		header('Location: signin.php?error=you are not logged in, please log in first');
-		exit;
-	}
-
-
+	require_once 'isadmin.php';
 ?>
 
 
@@ -37,7 +12,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>eCommerce - Display All Users</title>
+        <title>eCommerce - Admin Panel</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -53,86 +28,23 @@
         <![endif]-->
 
         <div id="wrapper">
-            <header>
-                <section id="top-area">
-                    <p>Phone orders: 1-800-0000 | Email us: <a href="mailto:office@shop.com">office@shop.com</a></p>
-                </section><!-- end top-area -->
-                <section id="action-bar">
-                    <div id="logo" class="admin-view">
-                        <a href="#"><span id="logo-accent">e</span>Commerce</a>
-                    </div><!-- end logo -->
-
-                    <nav class="dropdown">
-                        <ul>
-                            <li>
-                                <a href="#">Shop by Category <img src="img/down-arrow.gif" alt="Shop by Category" /></a>
-                                <ul>
-                                    <li><a href="#">Laptops</a></li>
-                                    <li><a href="#">Desktop PC</a></li>
-                                    <li><a href="#">Smartphones</a></li>
-                                    <li><a href="#">Tablets</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
-
-                    <div id="search-form">
-                        <form action="#" method="get">
-                            <input type="search" name="search" placeholder="Search by keyword" class="search">
-                            <input type="submit" value="Search" class="search submit">
-                        </form>
-                    </div><!-- end search-form -->
-
-                    <div id="user-menu">
-                        
-                        <nav class="dropdown">
-                            <ul>
-                                <li>
-                                    <a href="#"><img src="img/user-icon.gif" alt="<?= $loguser->name?>" /> <?= $loguser->name ?> <img src="img/down-arrow.gif" alt="<?= $loguser->name ?>" /></a>
-                                    <ul>
-                                        <li><a href="update-user-info.php">Update My Info</a></li>
-                                        <li><a href="#">Order History</a></li>
-                                        <li><a href="#">Wishlist</a></li>
-                                        <li><a href="signout.php">Sign Out</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
-
-                        <!--
-                        <nav class="dropdown">
-                            <ul>
-                                <li>
-                                    <a href="#"><img src="img/user-icon.gif" alt="Andrew Perkins" /> Andrew Perkins <img src="img/down-arrow.gif" alt="Andrew Perkins" /></a>
-                                    <ul>
-                                        <li><a href="#">Order History</a></li>
-                                        <li><a href="#">Wishlist</a></li>
-                                        <li><a href="#">Sign Out</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>-->
-                    </div><!-- end user-menu -->
-
-                    <div id="view-cart">
-                                            
-                        <a href="admin-panel.php" id="admin-panel"><img src="img/admin.ico" alt="Admin Panel"> Admin Panel</a>
-                        <a href="shopping-cart.php"><img src="img/blue-cart.gif" alt="View Cart"> View Cart</a>
-                    </div><!-- end view-cart && admin-panel -->
-                </section><!-- end action-bar -->
-            </header>
-
+            <?php require_once('header.php'); ?>
             <hr />
 
             <section id="main-content" class="clearfix">
-                <div id="admin-panel">
+                <div id="adminPanel">
                     <h1>Admin Panel</h1>
 
+                    <hr />
+
                     <ul>
-                        <li><a href="users-list.php">View all users</a></li>
-                        <li><a href="catmanagement.php">View all categories</a></li>
+                        <li><a href="users-list.php">Manage users</a></li>
+                        <li><a href="catmanagement.php">Manage categories</a></li>
+                        <li><a href="add-category.php">Add new category</a></li>
                         <li><a href="new-product.php">Add new product</a></li>
                     </ul>
+
+                    <a href="index.php" class="home-btn">Go To Home Page</a>
                      
                 </div><!-- end new-account -->
             </section><!-- end main-content -->
@@ -147,7 +59,7 @@
                 <hr />
 
                 <section id="links">
-                    <div id="my-account">
+                    <!-- <div id="my-account">
                         <h4>MY ACCOUNT</h4>
                         <ul>
                             <li><a href="#">Sign In</a></li>
@@ -156,7 +68,7 @@
                             <li><a href="#">Order History</a></li>
                             <li><a href="#">Shopping Cart</a></li>
                         </ul>
-                    </div><!-- end my-account -->
+                    </div> --><!-- end my-account -->
                     <div id="info">
                         <h4>INFORMATION</h4>
                         <ul>

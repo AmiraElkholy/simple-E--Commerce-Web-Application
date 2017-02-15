@@ -12,7 +12,7 @@
             if($usr) {
                 if($usr->isadmin == 1) {
                     $_SESSION['loggeduser'] = $usr;
-                    header('Location: users-list.php');
+                    header('Location: admin-panel.php');
                     if(isset($_POST['remeber'])) {
                         setcookie('email', $usr->email, time()+(60*60*24*30));
                     }
