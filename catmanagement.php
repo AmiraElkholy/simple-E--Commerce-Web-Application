@@ -108,7 +108,7 @@
                         }
                         echo "</ul></br>";
                     }
-                    $ind=$cat->selectind();
+                    $ind=$cat->selectind2();
                     foreach($ind as $in){
                         echo "<h4>".$in->name."</h4><a href=add-subcategory.php?id=".$in->idcategory."&name=".$in->name.">Add Subcategory</a>
                                                     <a href=update-category.php?id=".$in->idcategory."&name=".$in->name."&super=".$in->idsupercategory.">update</a>
