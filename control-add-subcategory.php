@@ -1,0 +1,14 @@
+<?php
+    if (isset($_POST)) {
+        require "auto_load.php";
+        $cat=new category();
+        $cat->name=$_POST['subcategory'];
+        $cat->idsupercategory=$_POST['id'];
+        if($cat->insert()){
+            header('Location:catmanagement.php');
+        }
+        else{
+            header('Location:catmanagement.php');
+        }
+    }
+?>
