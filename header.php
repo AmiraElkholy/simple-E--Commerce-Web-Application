@@ -29,13 +29,13 @@
                     </div><!-- end search-form -->
 
                     <div id="user-menu">
-                        
+                    <?php if($loguser): ?>
                         <nav class="dropdown">
                             <ul>
                                 <li>
-                                    <a href="#"><img src="img/user-icon.gif" alt="<?= $loguser->name?>" /> <?= $loguser->name ?> <img src="img/down-arrow.gif" alt="<?= $loguser->name ?>" /></a>
+                                    <a href="profile.php"><img src="img/user-icon.gif" alt="<?= $loguser->name?>" /> <?= $loguser->name ?> <img src="img/down-arrow.gif" alt="<?= $loguser->name ?>" /></a>
                                     <ul>
-                                        <?php if($loguser->isadmin==1): ?>
+                                        <?php if($loguser&&$loguser->isadmin==1): ?>
                                         <li><a href="admin-panel.php">Admin Panel</a></li>
                                         <?php endif; ?>
                                         <li><a href="update-user-info.php">Update My Info</a></li>
@@ -46,10 +46,24 @@
                                 </li>
                             </ul>
                         </nav>
+                    <?php else: ?>
+                        <nav id="signin" class="dropdown">
+                            <ul>
+                                <li>
+                                    <a href="signin.php"><img src="img/user-icon.gif" alt="Sign In" /> Sign In <img src="img/down-arrow.gif" alt="Sign In" /></a>
+                                    <ul>
+                                        <li><a href="signin.php">Sign In</a></li>
+                                        <li><a href="new-account.php">Sign Up</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    <?php endif; ?>
+
                     </div><!-- end user-menu -->
 
                     <div id="view-cart">                                           
-                        <?php if($loguser->isadmin==1): ?>
+                        <?php if($loguser&&$loguser->isadmin==1): ?>
                         <a href="admin-panel.php" id="admin-panel"><img src="img/admin.ico" alt="Admin Panel"> Admin Panel</a>
                         <?php endif; ?>
                         <a href="shopping-cart.php"><img src="img/blue-cart.gif" alt="View Cart"> View Cart</a>
