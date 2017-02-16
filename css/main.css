@@ -1292,8 +1292,8 @@ footer #connect ul li.fb {
 .error {
     background-color: pink;
     color: red;
-    width: 800px;
-    padding: 10px;
+    width: 100%;
+    padding: 10px 0;
     border: 1px solid red;
     text-align: center;
     /*font-weight: bold;*/
@@ -1301,15 +1301,15 @@ footer #connect ul li.fb {
 .message {
     background-color: limegreen;
     color: white;
-    width: 800px;
-    padding: 10px;
+    width: 100%;
+    padding: 10px 0;
     border: 1px solid lightgreen;
     text-align: center;
     /*font-weight: bold;*/
 }
-p.error, p.message {
+/*p.error, p.message {
     margin: 10px auto !important;
-}
+}*/
 input, textarea {
     outline: none;
 }
@@ -1418,6 +1418,10 @@ span.form-error {
 }
 #incart {
     background-color: green;
+}
+.msg {
+    padding: 0;
+    margin: 0;
 }
 .catman{
 width:600px;
