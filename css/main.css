@@ -1355,7 +1355,7 @@ span.form-error {
     margin-left: 15px;
 }
 #action-bar #logo.admin-view {
-    margin-right: 20px;
+    margin-right: 0px;
 }
 #adminPanel ul li {
     margin: 10px;
