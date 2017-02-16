@@ -154,6 +154,7 @@ header a:link, header a:visited {
 }
 
 #action-bar #logo {
+    padding-left: 30px;
     float: left;
     margin-right: 100px;
     font-size: 20px;
@@ -1350,7 +1351,7 @@ span.form-error {
     margin-left: 15px;
 }
 #action-bar #logo.admin-view {
-    margin-right: 50px;
+    margin-right: 20px;
 }
 #adminPanel ul li {
     margin: 10px;
@@ -1400,4 +1401,18 @@ span.form-error {
 }
 #view-info label:nth-child(odd) {
     color: grey;
+}
+/*#listings p.subcat {
+    color: grey;
+    margin-top: -10px;
+}*/
+#listings {
+    min-height: 200px;
+}
+#promo a#shopnow:visited {
+    color: white !important;
+}
+#action-bar {
+    width: 1200px;
+    margin: 0 auto;
 }

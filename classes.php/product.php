@@ -43,6 +43,7 @@ class product{
         $stmt->bind_param('i', $catid);
         $stmt->execute();
         $result = $stmt->get_result();
+        $products = [];
         while($obj = $result->fetch_object('product')) {
             $products[]=$obj;
         }

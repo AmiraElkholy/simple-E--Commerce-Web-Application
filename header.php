@@ -1,10 +1,15 @@
+<?php  
+    $cat = new category();
+    $categories = $cat->selectind();
+?>
+
 <header>
                 <section id="top-area">
                     <p>Phone orders: 1-800-0000 | Email us: <a href="mailto:office@shop.com">office@shop.com</a></p>
                 </section><!-- end top-area -->
                 <section id="action-bar">
-                    <div id="logo" class="admin-view">
-                        <a href="#"><span id="logo-accent">e</span>Commerce</a>
+                    <div id="logo" <?php if($loguser&&$loguser->isadmin==1) echo "class='admin-view'"; ?>>
+                        <a href="index.php"><span id="logo-accent">e</span>Commerce</a>
                     </div><!-- end logo -->
 
                     <nav class="dropdown">
@@ -12,10 +17,13 @@
                             <li>
                                 <a href="#">Shop by Category <img src="img/down-arrow.gif" alt="Shop by Category" /></a>
                                 <ul>
-                                    <li><a href="#">Laptops</a></li>
-                                    <li><a href="#">Desktop PC</a></li>
-                                    <li><a href="#">Smartphones</a></li>
-                                    <li><a href="#">Tablets</a></li>
+                            <?php if($categories): ?>
+                                <?php foreach ($categories as $category): ?>
+                                    <li>
+                                    <a href="category.php?id=<?= $category->idcategory ?>"><?= $category->name; ?></a>
+                                    </li>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                                 </ul>
                             </li>
                         </ul>

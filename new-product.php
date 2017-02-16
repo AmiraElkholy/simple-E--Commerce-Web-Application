@@ -1,5 +1,5 @@
 <?php
-    require "auto_load.php";
+    require "isuser.php";
     product::addNewProduct();
  ?>
 <!DOCTYPE html>
@@ -26,70 +26,7 @@
         <![endif]-->
 
         <div id="wrapper">
-            <header>
-                <section id="top-area">
-                    <p>Phone orders: 1-800-0000 | Email us: <a href="mailto:office@shop.com">office@shop.com</a></p>
-                </section><!-- end top-area -->
-                <section id="action-bar">
-                    <div id="logo">
-                        <a href="#"><span id="logo-accent">e</span>Commerce</a>
-                    </div><!-- end logo -->
-
-                    <nav class="dropdown">
-                        <ul>
-                            <li>
-                                <a href="#">Shop by Category <img src="img/down-arrow.gif" alt="Shop by Category" /></a>
-                                <ul>
-                                    <li><a href="#">Laptops</a></li>
-                                    <li><a href="#">Desktop PC</a></li>
-                                    <li><a href="#">Smartphones</a></li>
-                                    <li><a href="#">Tablets</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
-
-                    <div id="search-form">
-                        <form action="#" method="get">
-                            <input type="search" name="search" placeholder="Search by keyword" class="search">
-                            <input type="submit" value="Search" class="search submit">
-                        </form>
-                    </div><!-- end search-form -->
-
-                    <div id="user-menu">
-
-                        <nav id="signin" class="dropdown">
-                            <ul>
-                                <li>
-                                    <a href="#"><img src="img/user-icon.gif" alt="Sign In" /> Sign In <img src="img/down-arrow.gif" alt="Sign In" /></a>
-                                    <ul>
-                                        <li><a href="#">Sign In</a></li>
-                                        <li><a href="#">Sign Up</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
-
-                        <!--
-                        <nav class="dropdown">
-                            <ul>
-                                <li>
-                                    <a href="#"><img src="img/user-icon.gif" alt="Andrew Perkins" /> Andrew Perkins <img src="img/down-arrow.gif" alt="Andrew Perkins" /></a>
-                                    <ul>
-                                        <li><a href="#">Order History</a></li>
-                                        <li><a href="#">Wishlist</a></li>
-                                        <li><a href="#">Sign Out</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>-->
-                    </div><!-- end user-menu -->
-
-                    <div id="view-cart">
-                        <a href="#"><img src="img/blue-cart.gif" alt="View Cart"> View Cart</a>
-                    </div><!-- end view-cart -->
-                </section><!-- end action-bar -->
-            </header>
+            <?php require_once 'header.php' ?>
 
             <hr />
 
@@ -114,7 +51,7 @@
                             <label for="quantity">
                                 <span class="required-field">*</span> Product quantity
                             </label>
-                            <input type="number" id="quantity" name="quantity" min="1" required>
+                            <input type="number" id="quantity" name="quantity" min="0" required>
                         </p>
                         <p>
                             <label for="description">

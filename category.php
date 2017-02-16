@@ -4,14 +4,16 @@
         //get category name from database
         $catid = $_GET['id'];
         $cat = new category();
-        $category = ($cat->selectcatbyid($catid))[0];
-        if(!$category) {
+        $supercategory = ($cat->selectcatbyid($catid));
+        if(!$supercategory) {
             echo "failed to display category";
             exit;
         }
+        $supercategory = $supercategory[0];
         $products = product::selectAllbycatid($catid);
         if(!$products) {
-
+            $subcat = new category();
+            $subcategroies = $subcat->selectcatbysupid($catid);
         }
     }
     else {
@@ -46,36 +48,22 @@
         <div id="wrapper">
             <?php require_once('header.php'); ?>
 
-            <!-- <section id="promo-alt">
-                <div id="promo1">
-                    <h1>The brand new MacBook Pro</h1>
-                    <p>With a special price, <span class="bold">today only!</span></p>
-                    <a href="#" class="secondary-btn">READ MORE</a>
-                    <img src="img/macbook.png" alt="MacBook Pro">
-                </div>
-                <div id="promo2">
-                    <h2>The iPhone 5 is now<br>available in our store!</h2>
-                    <a href="">Read more <img src="img/right-arrow.gif" alt="Read more"></a>
-                    <img src="img/iphone.png" alt="iPhone">
-                </div>
-                <div id="promo3">
-                    <img src="img/thunderbolt.png" alt="Thunderbolt">
-                    <h2>The 27"<br>Thunderbolt Display.<br>Simply Stunning.</h2>
-                    <a href="#">Read more <img src="img/right-arrow.gif" alt="Read more" /></a>
-                </div>
-            </section> --><!-- promo-alt -->
-
             <section id="main-content" class="clearfix">
-                <h2><?= $category->name ?></h2>
+                <h2><?= $supercategory->name ?></h2>
                 <hr>
 
                 <aside id="categories-menu">
                     <h3>CATEGORIES</h3>
+                    <?php $catt = new category();
+                        $catts = $catt->selectind(); ?>
                     <ul>
-                        <li><a href="#">Laptops</a></li>
-                        <li><a href="#">Desktop PC</a></li>
-                        <li><a href="#">Smartphones</a></li>
-                        <li><a href="#">Tablets</a></li>
+                        <?php if($catts): ?>
+                                <?php foreach ($catts as $catt): ?>
+                                    <li>
+                                    <a href="category.php?id=<?= $catt->idcategory ?>"><?= $catt->name; ?></a>
+                                    </li>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                     </ul>
                 </aside><!-- end categories-menu -->
 
@@ -104,6 +92,47 @@
                         </p>
                     </div>
                 <?php endforeach; ?>
+                <?php else: ?>
+                    <?php if($subcategroies): ?>                      
+                    <?php foreach ($subcategroies as $subcategory) {
+
+                        $catproducts = product::selectAllbycatid($subcategory->idcategory); 
+                        ?>
+                        <?php if($catproducts): ?>
+                            <?php foreach ($catproducts as $catproduct): ?> 
+                    <div class="product">
+                        <a href="view-product.php?name=<?= $catproduct->name ?>"><img id="productImage" src="img/products/<?= $catproduct->image; ?>" alt="<?= $catproduct->name ?>" class="feature"></a>
+
+                        <h3><a href="view-product.php?name=<?= $catproduct->name ?>"><?= $catproduct->name ?></a></h3>
+
+                        <p><?= $catproduct->description; ?></p>
+
+
+                        <?php if($catproduct->quantity > 0): ?>
+                        <h5>Availability: <span class="instock">In Stock</span></h5>
+                        <?php else: ?>
+                        <h5>Availability: <span class="outofstock">Out of Stock</span></h5>                            
+                        <?php endif; ?>
+
+                        <p>
+                            <a href="#" class="cart-btn">
+                                <span class="price">$<?= $catproduct->price; ?></span>
+                                 <img src="img/white-cart.gif" alt="Add to Cart">ADD TO CART</a>
+                        </p>
+
+                        <p class="wish">
+                            <a href="category.php?id=<?= $subcategory->idcategory; ?>">
+                                <img src="img/wish.gif">
+                                 Found in <?= $subcategory->name; ?>
+                            </a>
+                        </p>           
+                    </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    <?php 
+                     }
+                    ?>
+                    <?php endif; ?>
                 <?php endif; ?>
 
                 </div><!-- end listings -->
@@ -129,7 +158,7 @@
                 <hr />
 
                 <section id="links">
-                    <div id="my-account">
+                    <!-- <div id="my-account">
                         <h4>MY ACCOUNT</h4>
                         <ul>
                             <li><a href="#">Sign In</a></li>
@@ -138,7 +167,7 @@
                             <li><a href="#">Order History</a></li>
                             <li><a href="#">Shopping Cart</a></li>
                         </ul>
-                    </div><!-- end my-account -->
+                    </div> --><!-- end my-account -->
                     <div id="info">
                         <h4>INFORMATION</h4>
                         <ul>

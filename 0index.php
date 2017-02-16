@@ -1,5 +1,12 @@
 <?php
     require_once('isuser.php');
+    $featuredproducts = product::selectAll();
+    if($featuredproducts) {
+        if(count($featuredproducts)>=4) {
+            $featuredproducts = array_slice($featuredproducts, 0, 4);
+        }
+    }
+    else { }
  ?>
  <!DOCTYPE html>
  <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -32,7 +39,7 @@
                     <h1>Today's Deals</h1>
                     <p>Checkout this section of<br />
                      products at a discounted price.</p>
-                    <a href="#" class="default-btn">Shop Now</a>
+                    <a href="#" id="shopnow" class="default-btn">Shop Now</a>
                 </div><!-- end promo-details -->
                 <img src="img/promo.png" alt="Promotional Ad">
             </section><!-- promo -->
@@ -41,102 +48,30 @@
                 <h2>Featured</h2>
                 <hr>
                 <div id="products">
+                <?php if($featuredproducts): ?>
+                <?php foreach ($featuredproducts as $product): ?>
                     <div class="product">
-                        <a href="#"><img src="img/product.gif" alt="Product" class="feature"></a>
+                        <a href="view-product.php?name=<?= $product->name ?>"><img id="productImage" src="img/products/<?= $product->image; ?>" alt="<?= $product->name ?>" class="feature"></a>
 
-                        <h3><a href="#">This is the Product Title</a></h3>
+                        <h3><a href="view-product.php?name=<?= $product->name ?>"><?= $product->name ?></a></h3>
 
-                        <p>This is a short description. This is a short description. This is a short description. This is a short description. This is a short description. This is a short description. This is a short description. This is a short description.</p>
+                        <p><?= $product->description; ?></p>
 
+
+                        <?php if($product->quantity > 0): ?>
                         <h5>Availability: <span class="instock">In Stock</span></h5>
+                        <?php else: ?>
+                        <h5>Availability: <span class="outofstock">Out of Stock</span></h5>                            
+                        <?php endif; ?>
 
                         <p>
                             <a href="#" class="cart-btn">
-                                <span class="price">$499.08</span>
-                                 <img src="img/white-cart.gif" alt="Add to Cart">
-                                  ADD TO CART
-                            </a>
-                        </p>
-
-                        <p class="wish">
-                            <a href="">
-                                <img src="img/wish.gif" alt="Add to Wishlist">
-                                 Add to Wishlist
-                            </a>
+                                <span class="price">$<?= $product->price; ?></span>
+                                 <img src="img/white-cart.gif" alt="Add to Cart">ADD TO CART</a>
                         </p>
                     </div>
-                    <div class="product">
-                        <a href="#"><img src="img/product.gif" alt="Product" class="feature"></a>
-
-                        <h3><a href="#">This is the Product Title</a></h3>
-
-                        <p>This is a short description. This is a short description. This is a short description. This is a short description. This is a short description. This is a short description.</p>
-
-                        <h5>Availability: <span class="instock">In Stock</span></h5>
-
-                        <p>
-                            <a href="#" class="cart-btn">
-                                <span class="price">$499.08</span>
-                                 <img src="img/white-cart.gif" alt="Add to Cart">
-                                  ADD TO CART
-                            </a>
-                        </p>
-
-                        <p class="wish">
-                            <a href="">
-                                <img src="img/wish.gif" alt="Add to Wishlist">
-                                 Add to Wishlist
-                            </a>
-                        </p>
-                    </div>
-                    <div class="product">
-                        <a href="#"><img src="img/product.gif" alt="Product" class="feature"></a>
-
-                        <h3><a href="#">This is the Product Title</a></h3>
-
-                        <p>This is a short description. This is a short description. This is a short description. This is a short description. </p>
-
-                        <h5>Availability: <span class="outofstock">Out of Stock</span></h5>
-
-                        <p>
-                            <a href="#" class="cart-btn">
-                                <span class="price">$499.08</span>
-                                 <img src="img/white-cart.gif" alt="Add to Cart">
-                                  ADD TO CART
-                            </a>
-                        </p>
-
-                        <p class="wish">
-                            <a href="">
-                                <img src="img/wish.gif" alt="Add to Wishlist">
-                                 Add to Wishlist
-                            </a>
-                        </p>
-                    </div>
-                    <div class="product">
-                        <a href="#"><img src="img/product.gif" alt="Product" class="feature"></a>
-
-                        <h3><a href="#">This is the Product Title</a></h3>
-
-                        <p>This is a short description. </p>
-
-                        <h5>Availability: <span class="instock">In Stock</span></h5>
-
-                        <p>
-                            <a href="#" class="cart-btn">
-                                <span class="price">$499.08</span>
-                                 <img src="img/white-cart.gif" alt="Add to Cart">
-                                  ADD TO CART
-                            </a>
-                        </p>
-
-                        <p class="wish">
-                            <a href="">
-                                <img src="img/wish.gif" alt="Add to Wishlist">
-                                 Add to Wishlist
-                            </a>
-                        </p>
-                    </div>
+                <?php endforeach; ?>
+                <?php endif; ?>
                 </div><!-- end products -->
             </section><!-- end main-content -->
 
