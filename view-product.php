@@ -40,20 +40,18 @@
                     <p><?=$product->description?></p>
 
                     <hr />
-                    <?php if($product->quantity > 0) {?>
-                        <form action="addtocart.php?product=" method="get">
+                    <?php if($product->quantity > 0 && $loguser) {?>
+                        <form action="addtocart.php" method="get">
                             <label for="qty">Qty:</label>
                             <input type="text" id="qty" name="qty" value="1" maxlength="2">
-
-                            <button type="submit" name="addtocart" class="secondary-cart-btn">
+                            <input type="hidden" name="name" value="<?=$product->name?>" >
+                            <button type="submit" class="secondary-cart-btn">
                                 <img src="img/white-cart.gif" alt="Add to Cart" />
                                  ADD TO CART
                             </button>
                         </form>
                     <?php } ?>
-                    <p>
-                        <a href="#"><img src="img/wish.gif" alt="Add to Wishlist" /> Add to Wishlist</a>
-                    </p>
+
                 </div><!-- end product-details -->
                 <div id="product-info">
                     <p class="price">$<?=$product->price?></p>

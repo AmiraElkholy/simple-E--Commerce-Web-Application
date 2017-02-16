@@ -14,12 +14,11 @@ class order
     function __set($attr,$value){
         $this->$attr = $value; //variable variable
     }
-    public static function createobj($iduser,$products){
+    public static function createobj($iduser){
         $obj = new self();
         $obj->idorder=null;
         // $obj->date=date('Y-m-d H:i:s');
-        $obj->iduser=$idusr;
-        $obj->products=$products;
+        $obj->iduser=$iduser;
         $obj->isdeleted=0;
         $obj->iscart=1;
         return $obj;
@@ -67,7 +66,7 @@ class order
         $stmt = $mysqli->prepare("INSERT INTO `E-Commerce`.`orderproduct`
         VALUES(?,?,?,?)");
         $stmt->bind_param('iidi',$this->idorder,$product->idproduct,
-            $product->price,$product->orderQuantity);
+            $product->price,$product->qty);
         if($stmt->execute()){
             $this->products[]=$product;
             return true;
@@ -86,7 +85,7 @@ class order
         $stmt->execute();
         $result = $stmt->get_result();
         while($obj = $result->fetch_obj()) {
-            // $products[]=$obj;
+            $this->products[]=$obj;
         }
         return $products;
     }
