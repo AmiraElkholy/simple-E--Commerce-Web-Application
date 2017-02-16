@@ -42,7 +42,7 @@
                 <div id="shopping-cart">
                     <h1>Shopping Cart & Checkout</h1>
 
-                    <form action="#" method="post">
+                    <form action="checkout.php" method="post">
                         <table border="1">
                             <tr>
                                 <th>#</th>
