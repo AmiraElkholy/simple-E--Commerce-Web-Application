@@ -128,7 +128,23 @@ class order
             $this->products[]=$obj;
         }
     }
-
+    //=======================================================================================================
+    function checkout()
+    {
+        foreach ($this->products as $key => $value) {
+            $product= product::selectbyid($idproduct);
+        }
+    }
+    function calcTotAmount()
+    {
+        $total=0;
+        foreach ($this->products as $key => $value) {
+            $product= product::selectbyid($value->idproduct);
+            $total+=$product->price;
+        }
+        return $total;
+    }
+    //=======================================================================================================
 }
 
  ?>
