@@ -54,10 +54,38 @@ class order
         }
         return $orders;
     }
+    //=======================================================================================================
+    static function hasOrderInCart($iduser){
+        require 'config.php';
+        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.order
+            WHERE `iduser` = ? AND isdeleted = 0 AND iscart = 1");
+        $stmt->bind_param('i', $iduser);
+        if ($stmt->execute()) {
+            $result = $stmt->get_result();
+            $result->fetch_object('order');
+            return $order;
+        }
+        else return false;
+    }
+    static function isInOrder($idproduct,$idorder){
+        require 'config.php';
+        $stmt= $mysqli->prepare("SELECT * FROM `E-Commerce`.orderproduct
+            WHERE idorder=? AND idproduct=?");
+        $stmt->bind_param('ii',$idorder,$idproduct);
+        return $stmt->execute();
+    }
+    static function hasThisInCart($idproduct,$iduser){
+        if (order::hasOrderInCart($iduser)) {
+            if (order::isInOrder($idproduct)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    //=======================================================================================================
     function insert() {
         require 'config.php';
-        $stmt = $mysqli->prepare("INSERT INTO `E-Commerce`.`order`
-        VALUES(null,null,?,null,null)");
+        $stmt = $mysqli->prepare("INSERT INTO `E-Commerce`.`order`(`iduser`)VALUES(?)");
         $stmt->bind_param('i',$this->iduser);
         return $stmt->execute();
     }
@@ -65,6 +93,8 @@ class order
         require 'config.php';
         $stmt = $mysqli->prepare("INSERT INTO `E-Commerce`.`orderproduct`
         VALUES(?,?,?,?)");
+        echo "idorder: ".$this->idorder."  idproduct: ".$product->idproduct.
+            "   price: ".$product->price." qty: ".$product->qty;
         $stmt->bind_param('iidi',$this->idorder,$product->idproduct,
             $product->price,$product->qty);
         if($stmt->execute()){

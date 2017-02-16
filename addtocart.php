@@ -4,16 +4,21 @@ require_once('isuser.php');
 if ($loguser) {
     if (isset($_GET['name'])) {
         if($product=product::selectbyname($_GET['name'])){
-            if (isset($_GET['qty'])) {
-                $product->qty=intval($_GET['qty']);
+            if (isset($_GET['qty'])) $product->qty=intval($_GET['qty']);
+            else $product->qty= 1;
+            if ($order=order::hasOrderInCart($loguser->iduser)) {
+                var_dump($order);
             }
             else {
-                $product->qty= 1;
+                $order = order::createobj($loguser->iduser);
+                if ($order->insert()){
+                    if ($order->addProduct()) {
+                        echo "product added to chart";
+                    }
+                    echo "failed to add to chart";
+                }
             }
-            print_r($product);
-            $order = order::createobj($loguser->iduser);
-            if($order->addProduct($product)) echo "Done";
-            else echo "error";
+
         }
     }
 }
