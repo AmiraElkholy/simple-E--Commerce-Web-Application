@@ -130,7 +130,7 @@ class order
             $this->products[]=$obj;
             $prod = product::selectbyid($obj->idproduct);
             $obj->image = $prod->image;
-            $obj->name = $prod->name;       
+            $obj->name = $prod->name;
         }
     }
     //=======================================================================================================
@@ -159,8 +159,8 @@ class order
     }
     function updateIsCart(){
         require 'config.php';
-        $stmt = $mysqli->prepare("UPDATE `E-Commerce`.`order` SET `iscart` = 0
-            WHERE `idorder` = $this->idorder");
+        $stmt = $mysqli->prepare("UPDATE `E-Commerce`.`order` SET `iscart` = 0 ,
+            `date` = CURRENT_TIMESTAMP WHERE `idorder` = $this->idorder");
         return $stmt->execute();
     }
     //=======================================================================================================
