@@ -1416,3 +1416,6 @@ span.form-error {
     width: 1200px;
     margin: 0 auto;
 }
+#incart {
+    background-color: green;
+}

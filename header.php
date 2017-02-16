@@ -46,9 +46,9 @@
                                         <?php if($loguser&&$loguser->isadmin==1): ?>
                                         <li><a href="admin-panel.php">Admin Panel</a></li>
                                         <?php endif; ?>
+                                        <li><a href="profile.php">My Profile</a></li>
                                         <li><a href="update-user-info.php">Update My Info</a></li>
                                         <li><a href="#">Order History</a></li>
-                                        <li><a href="#">Wishlist</a></li>
                                         <li><a href="signout.php">Sign Out</a></li>
                                     </ul>
                                 </li>

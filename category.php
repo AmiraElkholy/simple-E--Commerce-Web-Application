@@ -74,12 +74,17 @@
                     <?php require 'product.php'; ?>
                 <?php endforeach; ?>
                 <?php else: ?>
-                    <?php if($subcategroies): ?>                      
-                    <?php foreach ($subcategroies as $subcategory) {
-                        $catproducts = product::selectAllbycatid($subcategory->idcategory); 
-                        ?>
-                        <?php if($catproducts): ?>
-                            <?php foreach ($catproducts as $catproduct): ?> 
+    <?php if($subcategroies): ?>                      
+    <?php foreach ($subcategroies as $subcategory) {
+    $catproducts = product::selectAllbycatid($subcategory->idcategory); ?>
+    <?php if($catproducts): ?>
+    <?php foreach ($catproducts as $catproduct): ?> 
+    <?php 
+        $isincart = false;
+        if($loguser) {
+            $isincart = order::hasThisInCart($product->idproduct, $loguser->iduser);
+        }
+    ?>
                     <div class="product">
                         <a href="view-product.php?name=<?= $catproduct->name ?>"><img id="productImage" src="img/products/<?= $catproduct->image; ?>" alt="<?= $catproduct->name ?>" class="feature"></a>
 
@@ -94,11 +99,17 @@
                         <h5>Availability: <span class="outofstock">Out of Stock</span></h5>                            
                         <?php endif; ?>
 
-                        <p>
-                            <a href="#" class="cart-btn">
-                                <span class="price">$<?= $catproduct->price; ?></span>
-                                 <img src="img/white-cart.gif" alt="Add to Cart">ADD TO CART</a>
-                        </p>
+    <p>
+        <?php if(!$isincart): ?>
+            <a href="addtocart.php?name=<?= $catproduct->name ?>" class="cart-btn">
+            <span class="price">$<?= $catproduct->price; ?></span>
+            <img src="img/white-cart.gif" alt="Add to Cart">ADD TO CART</a>
+        <?php else: ?>
+            <a href="#" id="incart" class="cart-btn">
+            <span class="price">$<?= $catproduct->price; ?></span>
+            <img src="img/white-cart.gif" alt="Already In Cart">ALREADY IN CART</a>
+        <?php endif; ?>
+    </p>
 
                         <p class="wish">
                             <a href="category.php?id=<?= $subcategory->idcategory; ?>">

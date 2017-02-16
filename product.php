@@ -1,3 +1,10 @@
+<?php  
+	$isincart = false;
+	if($loguser) {
+		$isincart = order::hasThisInCart($product->idproduct, $loguser->iduser);
+	}
+?>
+
 <div class="product">
 <a href="view-product.php?name=<?= $product->name ?>"><img id="productImage" src="img/products/<?= $product->image; ?>" alt="<?= $product->name ?>" class="feature"></a>
 
@@ -13,8 +20,14 @@
 <?php endif; ?>
 
 <p>
-    <a href="#" class="cart-btn">
-        <span class="price">$<?= $product->price; ?></span>
-         <img src="img/white-cart.gif" alt="Add to Cart">ADD TO CART</a>
+        <?php if(!$isincart): ?>
+       		<a href="addtocart.php?name=<?= $product->name ?>" class="cart-btn">
+        	<span class="price">$<?= $product->price; ?></span>
+         	<img src="img/white-cart.gif" alt="Add to Cart">ADD TO CART</a>
+        <?php else: ?>
+        	<a href="#" id="incart" class="cart-btn">
+        	<span class="price">$<?= $product->price; ?></span>
+         	<img src="img/white-cart.gif" alt="Already In Cart">ALREADY IN CART</a>
+    	<?php endif; ?>
 </p>
 </div>
