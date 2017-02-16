@@ -58,6 +58,33 @@ class product{
         $result = $stmt->get_result();
         return $result->fetch_object('product');
     }
+    static function searchbyname($name) {
+        require 'config.php';
+        $likeName = '%'.$name.'%';
+        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.product
+            WHERE `name` like ? AND isdeleted = 0");
+        $stmt->bind_param('s', $likeName);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $products = [];
+        while($obj = $result->fetch_object('product')) {
+            $products[]=$obj;
+        }
+        return $products;
+    }
+    static function searchbyprice($price) {
+        require 'config.php';
+        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.product
+            WHERE `price` <= ? AND isdeleted = 0");
+        $stmt->bind_param('s', $price);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $products = [];
+        while($obj = $result->fetch_object('product')) {
+            $products[]=$obj;
+        }
+        return $products;
+    }
     static function selectbyid($idproduct) {
         require 'config.php';
         $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.product

@@ -30,8 +30,8 @@
                     </nav>
 
                     <div id="search-form">
-                        <form action="#" method="get">
-                            <input type="search" name="search" placeholder="Search by keyword" class="search">
+                        <form action="search.php" method="get">
+                            <input type="search" placeholder="Search by product name" class="search" name="searchbox" id="searchbox">
                             <input type="submit" value="Search" class="search submit">
                         </form>
                     </div><!-- end search-form -->

@@ -230,7 +230,7 @@ header a:link, header a:visited {
     border-right: 1px dotted #c3c3c3;
 }
 
-#action-bar #search-form .search {
+#action-bar #search-form .search, #lblform .search {
     border: 1px solid #eee;
     padding: 5px 10px;
     border-radius: 5px;
@@ -238,8 +238,14 @@ header a:link, header a:visited {
     -webkit-border-radius: 5px;
 }
 
-#action-bar #search-form .submit {
+#action-bar #search-form .submit, #lblform .submit {
     background-color: #f6f6f6;
+}
+
+#lblform {
+    margin: 0 auto;
+    text-align: center;
+    float: none;
 }
 
 /* ---- signin styles ---- */
@@ -1419,6 +1425,26 @@ span.form-error {
 #incart {
     background-color: green;
 }
+#lblform {
+    /*display: inline-block;*/
+    /*float: right;*/
+    width: 400px;
+    /*margin-right: 100px;
+    margin-top: 10px;*/
+}
+#search2 {
+    display: inline-block;  
+}
+.searchlbl {
+    margin-right: 10px;
+    color: #5daad0;
+}
+input[type=radio]:checked + label {
+    color: #0078c1;
+}
+.clearboth {
+    clear: both;
+}
 .msg {
     padding: 0;
     margin: 0;
@@ -1447,4 +1473,8 @@ color:#0078c1;
 
 li{
 list-style-type:none;
+}
+
+#searchpageheader #user-menu {
+    margin-left: 750px;
 }

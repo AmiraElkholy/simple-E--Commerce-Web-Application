@@ -64,6 +64,7 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
+        <script src="js/jquery-ui.js"></script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
@@ -95,6 +96,23 @@
                         },
                     });//end of ajax request
                 });//end of on change 
+
+
+            // $("#search-form").children("form").submit(function(e){
+            //         e.preventDefault();
+            // });
+
+                // $("#searchbox").on('keyup', function() {
+
+                //     $.ajax({
+                //         url: "search.php",
+                //         data: {searchbox: $('#searchbox').val()},
+                //         success: function(data) {
+                            
+                //         },
+                //     });//end of ajax request
+                // });//end of on change 
+
 
             });
         </script>

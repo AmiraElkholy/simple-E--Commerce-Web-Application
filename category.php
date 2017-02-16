@@ -82,7 +82,8 @@
     <?php 
         $isincart = false;
         if($loguser) {
-            $isincart = order::hasThisInCart($product->idproduct, $loguser->iduser);
+            $isincart = order::hasThisInCart($catproduct->idproduct, $loguser->iduser);
+            // var_dump($isincart);die;
         }
     ?>
                     <div class="product">
