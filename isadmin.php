@@ -1,3 +1,5 @@
+<div id="wrapper" class="msg">
+
 <?php 
 	require_once 'auto_load.php';
 	session_start();
@@ -26,6 +28,4 @@
 	}
 
  ?>
-
- 
-            
+</div>
