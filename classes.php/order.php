@@ -129,18 +129,21 @@ class order
         }
     }
     //=======================================================================================================
-    function checkout()
-    {
+    function checkout($loguser){
+        $total=$this->calcTotAmount();
+        if ($total > $loguser->creditlimit) {
+            return false;
+        }
         foreach ($this->products as $key => $value) {
-            $product= product::selectbyid($idproduct);
+            var_dump($value);
+            product::selectbyid($value->idproduct)->quantity -= $value->quantity;
         }
     }
-    function calcTotAmount()
-    {
+    function calcTotAmount(){
         $total=0;
         foreach ($this->products as $key => $value) {
             $product= product::selectbyid($value->idproduct);
-            $total+=($value->unitprice*$value->quantity);
+            $total+=($value->unitprice * $value->quantity);
         }
         return $total;
     }
