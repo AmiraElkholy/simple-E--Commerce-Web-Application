@@ -3,6 +3,8 @@
 
 	$products = false;
 
+    $keyword = "";
+
 	if($_POST) {
 		$searchby = $_POST['searchby'];
 		$keyword = $_POST['searchbox'];
@@ -16,7 +18,7 @@
 
 	else if(isset($_GET['searchbox'])) {
 
-		$productname = $_GET['searchbox'];
+		$keyword = $_GET['searchbox'];
 
 		$products = product::searchbyname($productname);
 
@@ -57,6 +59,7 @@
     $categories = $cat->selectind();
 ?>
 
+<div id="wrapper">
 <header id="searchpageheader">
                 <section id="top-area">
                     <p>Phone orders: 1-800-0000 | Email us: <a href="mailto:office@shop.com">office@shop.com</a></p>
@@ -126,11 +129,20 @@
                 </section><!-- end action-bar -->
 </header>
 
-         <div id="wrapper">
+            <hr />
+
+            <section id="search-keyword">
+                <h1>Search Results for <span><?= $keyword; ?></span></h1>
+            </section><!-- end search-keyword -->
+
+            <hr />
+
+         
 
             <section id="main-content">
-                <h2 id="search2">Search Results</h2>
-                <hr class="clearboth">
+            <div id="search-results">
+                <!-- <h2 id="search2">Search Results</h2>
+                <hr class="clearboth"> -->
                 <form id="lblform" action="<?= htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
             	 	<input type="search" placeholder="Search by product name" class="search" name="searchbox" id="searchbox">
                 	<input type="submit" value="Search" class="search submit">
@@ -150,6 +162,7 @@
                 <?php endforeach; ?>
                 <?php endif; ?>
                 </div><!-- end products -->
+                </div>
             </section><!-- end main-content -->
 
             <hr />

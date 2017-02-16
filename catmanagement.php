@@ -10,7 +10,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>eCommerce - Shopping Cart & Checkout</title>
+        <title>eCommerce - Manage Categories</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -36,7 +36,7 @@
             <section id="main-content" class="clearfix">
                 <div id="shopping-cart"">
                     <section id='view-info' class='catman'>
-                    <h1>Categories Management</h1>
+                    <h1>Manage Categories</h1>
                     <a class='add' href=add-category.php>add new category</a></br></br>
                     <?php
                     require_once 'auto_load.php';

@@ -13,8 +13,8 @@
                             <li><a href="signin.php">Sign In</a></li>
                             <li><a href="new-account.php">Sign Up</a></li>
                             <?php else: ?>
-                            <li><a href="profile.php">My Profile</a></li>
-                            <li><a href="#">Order History</a></li>
+                            <li><a href="profile.php">My Account</a></li>
+                            <li><a href="order-history.php">Order History</a></li>
                             <li><a href="shopping-cart.php">Shopping Cart</a></li>
                         <?php endif; ?>
                         </ul>
@@ -30,7 +30,7 @@
                         <h4>EXTRAS</h4>
                         <ul>
                             <li><a href="#">About Us</a></li>
-                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="contact.php">Contact Us</a></li>
                         </ul>
                     </div><!-- end extras -->
                 </section><!-- end links -->
@@ -97,10 +97,6 @@
                     });//end of ajax request
                 });//end of on change 
 
-
-            // $("#search-form").children("form").submit(function(e){
-            //         e.preventDefault();
-            // });
 
                 // $("#searchbox").on('keyup', function() {
 

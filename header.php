@@ -2,7 +2,6 @@
     $cat = new category();
     $categories = $cat->selectind();
 ?>
-
 <header>
                 <section id="top-area">
                     <p>Phone orders: 1-800-0000 | Email us: <a href="mailto:office@shop.com">office@shop.com</a></p>
@@ -46,7 +45,7 @@
                                         <?php if($loguser&&$loguser->isadmin==1): ?>
                                         <li><a href="admin-panel.php">Admin Panel</a></li>
                                         <?php endif; ?>
-                                        <li><a href="profile.php">My Profile</a></li>
+                                        <li><a href="profile.php">My Account</a></li>
                                         <li><a href="update-user-info.php">Update My Info</a></li>
                                         <li><a href="#">Order History</a></li>
                                         <li><a href="signout.php">Sign Out</a></li>

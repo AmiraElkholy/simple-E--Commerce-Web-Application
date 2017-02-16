@@ -1,22 +1,18 @@
 <?php
     require_once 'isuser.php';
 
+    if(!$loguser) {
+        header('Location: signin.php?error=you are not logged in, please log in first');
+        exit;
+    }
+
     if(isset($_GET['error'])) {
     echo "<p class='error'>".$_GET['error']."</p>";
     }
     if(isset($_GET['message'])) {
         echo "<p class='message'>".$_GET['message']."</p>";
     }
- 
-    //check if user is logged in..
-    if(isset($_SESSION['loggeduser'])) {
-        $loguser = $_SESSION['loggeduser'];
-
-    }
-    else {
-        header('Location: signin.php?error=you are not logged in, please log in first');
-        exit;
-    }
+    
 ?>
 
 <!DOCTYPE html>
@@ -66,6 +62,7 @@
                         $order=order::selectbyUserid($loguser->iduser);
                         
                     ?>
+                    <?php if($order): ?>
                     <table border="1">
                         <tr>
                             <td>Order ID</td>
@@ -83,30 +80,12 @@
                         echo "</tr>";
                         }
                         ?>
-
                     </table>
+                <?php endif; ?>
 
                 </div><!-- end order-history -->
             </section><!-- end main-content -->
             <hr />
-<?php
-require_once 'footer.php';
-?>
 
 
-        </div><!-- end wrapper -->
-
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
-        <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
-
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <script>
-            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-            g.src='//www.google-analytics.com/ga.js';
-            s.parentNode.insertBefore(g,s)}(document,'script'));
-        </script>
-    </body>
-</html>
+<?php require_once 'footer.php'; ?>

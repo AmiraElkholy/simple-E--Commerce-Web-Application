@@ -1,9 +1,5 @@
-<?php
-    require_once 'isadmin.php';
-    if(!(isset($_GET['id'])&&!empty($_GET['id']))) {
-        echo "error in adding subcategory";
-        die;    
-    }
+<?php  
+    require_once 'isuser.php';
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +10,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>eCommerce - Update Category</title>
+        <title>eCommerce - Contact Us</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -30,30 +26,34 @@
         <![endif]-->
 
         <div id="wrapper">
-            <?php
-                require_once 'header.php'
-            ?>
+            <?php require_once 'header.php'; ?>
 
             <hr />
 
             <section id="main-content" class="clearfix">
-                <div id="shopping-cart">
-                    <h1>Categories Management</h1>
-                    <h3>Update: <?=$_GET['name']?> </h3>
-                    </br>
-                        <form method="post" action="control-update-category.php">
-                            <label for="name">New name: </label>
-                            <input type="text" name="name" required>
-                            <input type="hidden" name="id" value="<?=$_GET['id']?>">
-                            <input type="hidden" name="super" value="<?=$_GET['super']?>">
-                            </br></br>
-                            <input type="submit" class="secondary-cart-btn">
-                        </form>
-                        </br>
-                </div>
-                <!-- end new-account -->
-            </section>
-            <!-- end main-content -->
+                <div id="contact-us">
+                    <h1>Contact Us</h1>
+
+                    <hr />
+
+                    <p>We are located at:</p>
+
+                    <p>
+                        <span>eCommerce</span><br />
+                        123 Main Street<br />
+                        Suite A<br />
+                        Los Angeles, CA 90014
+                    </p>
+
+                    <p>For customer service please call us: <span>1-800-8888</span></p>
+
+                    <p>Alternatively, you can contact <a href="mailto:support@shop.com">customer service by email</a>.</p>
+
+                    <hr />
+
+                    <p class="note">* For order related inquiries, please use the contact information provided below.</p>
+                </div><!-- end contact-us -->
+            </section><!-- end main-content -->
 
             <hr />
 

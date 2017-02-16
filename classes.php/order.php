@@ -49,6 +49,7 @@ class order
         $stmt->bind_param('i', $iduser);
         $stmt->execute();
         $result = $stmt->get_result();
+        $orders = [];
         while ($obj=$result->fetch_object('order')) {
             $orders[]=$obj;
         }

@@ -116,7 +116,7 @@ p, h1, h2, h3, h4, h5, ul, li {
    ============================================================================ */
 
 header {
-    background-color: #fff;
+    background-color: #fff ;
 }
 
 header a:link, header a:visited {
@@ -437,6 +437,7 @@ header a:link, header a:visited {
 
 #main-content {
     padding: 20px 0 0 30px;
+    min-height: 200px;
 }
 
 #main-content h2, #main-content h3 {
@@ -672,7 +673,7 @@ header a:link, header a:visited {
     font-size: 12px;
 }
 
-#new-account p input,#new-account p textarea,
+#new-account p input,#new-account p textarea, #personal-details p textarea,
 #personal-details p input {
     width: 300px;
     border: 1px solid #eee;
@@ -1298,24 +1299,21 @@ footer #connect ul li.fb {
 .error {
     background-color: pink;
     color: red;
-    width: 100%;
+    width: 1152px;
+    margin: 0 auto;
     padding: 10px 0;
     border: 1px solid red;
     text-align: center;
-    /*font-weight: bold;*/
 }
 .message {
     background-color: limegreen;
     color: white;
-    width: 100%;
+    width: 1152px;
+    margin: 0 auto;
     padding: 10px 0;
     border: 1px solid lightgreen;
     text-align: center;
-    /*font-weight: bold;*/
 }
-/*p.error, p.message {
-    margin: 10px auto !important;
-}*/
 input, textarea {
     outline: none;
 }
@@ -1371,7 +1369,6 @@ span.form-error {
 #adminPanel {
     position: relative;
     min-height: 300px;
-    /*padding-bottom: 30px;*/
 }
 
 .home-btn {
@@ -1401,8 +1398,9 @@ span.form-error {
 }
 
 .info-label {
+    width: 300px;
     padding: 7px;
-    border: 1px solid #e3e3e3;
+    border: 1px solid #5daad0;
     border-radius: 7px;
 }
 #view-info label:nth-child(odd) {
@@ -1442,9 +1440,9 @@ input[type=radio]:checked + label {
     margin: 0;
 }*/
 .catman{
-width:600px;
-margin:10px 0 20px 30px;
-padding:20px 20px 20px 40px;
+width:450px !important;
+margin:20px auto !important;
+padding: 40px 60px !important;
 line-height: 30px;
 }
 .actions{
@@ -1469,4 +1467,13 @@ list-style-type:none;
 
 #searchpageheader #user-menu {
     margin-left: 750px;
+}
+
+select {
+    width: 320px;
+    padding: 10px;
+    border: 1px solid #eee;
+    outline: none;
+    border-radius: 10px;
+    font-size: large;
 }

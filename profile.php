@@ -49,7 +49,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>eCommerce - Create New Account</title>
+        <title>eCommerce - Personal Details</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -74,7 +74,16 @@
             <hr />
 
             <section id="main-content" class="clearfix">
-                <div id="view-info">
+                <aside id="my-account-menu">
+                    <h3>ACCOUNT</h3>
+                    <ul>
+                        <li><a href="profile.php">My Account</a></li>
+                        <li><a href="order-history.php">Order History</a></li>
+                        <li><a href="signout.php">Sign Out</a></li>
+                    </ul>
+                </aside><!-- end my-account-menu -->
+                <!-- <div class="personal-details"> -->
+                <div id="personal-details">
                     <h1>View Info</h1>
                 	
                     <br>
@@ -148,6 +157,7 @@
                     		}
                     	?>
                         </p>
+                <!-- </div> -->
 
                         
 

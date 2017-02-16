@@ -193,14 +193,15 @@ class category{
         $stmt->execute();
         if(!$stmt){
             echo "preparation failed ".$mysqli->errno." : ".$mysqli->error."<br>";
-            exit();
+            // exit();
         }
         if($stmt->affected_rows>0){
             echo "Category was successfully updated";
+            return true;
         }
         else{
             echo "Category update failed";
-            exit();
+            // exit();
         }
         $stmt->close();
         $mysqli->close();

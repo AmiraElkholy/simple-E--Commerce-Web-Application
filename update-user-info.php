@@ -190,7 +190,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>eCommerce - Create New Account</title>
+        <title>eCommerce - Update Personal Details</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -215,8 +215,17 @@
             <hr />
 
             <section id="main-content" class="clearfix">
-                <div id="new-account">
-                    <h1>Update account Info</h1>
+                <aside id="my-account-menu">
+                    <h3>ACCOUNT</h3>
+                    <ul>
+                        <li><a href="profile.php">My Account</a></li>
+                        <li><a href="order-history.php">Order History</a></li>
+                        <li><a href="signout.php">Sign Out</a></li>
+                    </ul>
+                </aside><!-- end my-account-menu -->
+
+                <div id="personal-details">
+                    <h1>Update personal Details</h1>
 
                     <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
                         <p>
@@ -273,7 +282,7 @@
 
                         <hr />
 
-                        <input type="submit" value="UPDATE INFO" class="secondary-cart-btn">
+                        <input type="submit" value="SAVE CHANGES" class="secondary-cart-btn">
                     </form>
                 </div><!-- end new-account -->
             </section><!-- end main-content -->
