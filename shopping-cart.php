@@ -4,11 +4,20 @@
         header('Location: signin.php?error=you are not logged in, please log in first');
         exit;
     }
+    $products= false;
     $cart=order::selectCart($loguser->iduser);
-    $cart->setProducts();
-    $products = $cart->products;
-    // var_dump($products);
+    if($cart) {
+        $cart->setProducts();
+        $products = $cart->products;
+        // var_dump($products);
+    }
     $ordertotal = 0;
+    if(isset($_GET['error'])) {
+        echo "<p class='error'>".$_GET['error']."</p>";
+    }
+    if(isset($_GET['message'])) {
+        echo "<p class='message'>".$_GET['message']."</p>";
+    }
 ?>
 
 <!DOCTYPE html>
@@ -84,7 +93,7 @@
                                     <br />
                                     <span>TOTAL: $<?= $ordertotal; ?></span><br />
 
-                                    <a href="#" class="tertiary-btn">CONTINUE SHOPPING</a>
+                                    <a href="index.php" class="tertiary-btn">CONTINUE SHOPPING</a>
                                     <input type="submit" value="CHECKOUT WITH PAYPAL" class="secondary-cart-btn">
                                 </td>
                             </tr>
