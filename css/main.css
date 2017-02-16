@@ -1419,3 +1419,28 @@ span.form-error {
 #incart {
     background-color: green;
 }
+.catman{
+width:600px;
+margin:10px 0 20px 30px;
+padding:20px 20px 20px 40px;
+line-height: 30px;
+}
+.actions{
+float:right; 
+}
+
+.actions a{
+text-decoration: none; 
+padding:3px;
+}
+.update, .add{
+color:#5daad0;
+}
+
+.delete{
+color:#0078c1;
+}
+
+li{
+list-style-type:none;
+}
