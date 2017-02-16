@@ -6,7 +6,9 @@
     }
     $cart=order::selectCart($loguser->iduser);
     $cart->setProducts();
-    var_dump($cart->products);
+    $products = $cart->products;
+    // var_dump($products);
+    $ordertotal = 0;
 ?>
 
 <!DOCTYPE html>
@@ -49,50 +51,38 @@
                                 <th>Quantity</th>
                                 <th>Subtotal</th>
                             </tr>
+                        <?php if($products): ?>
+                            <?php foreach ($products as $product): ?>
+                            <?php 
+                                $subtotal = $product->quantity * $product->unitprice;
+                                $ordertotal += intval($subtotal);
+                            ?>
                             <tr>
-                                <td>1</td>
+                                <td><?= $product->idproduct; ?></td>
                                 <td>
-                                    <img src="img/main-product.png" alt="Product" width="65" height="37" />
-                                    Product Name
+                                    <img src="img/products/<?= $product->image; ?>" alt="Product" width="65" height="37" />
+                                    <?= $product->name ?>
                                 </td>
-                                <td>$400</td>
+                                <td>$<?= $product->unitprice; ?></td>
                                 <td>
-                                    <input type="text" value="1" maxlength="2" class="qty" />
+                                    <input type="text" value="<?= $product->quantity; ?>" maxlength="2" class="qty" />
                                     <a href="#">
                                         <img src="img/refresh.gif" alt="Refresh cart" />
                                     </a>
                                 </td>
                                 <td>
-                                    $400
+                                    $<?= $subtotal; ?>
                                     <a href="#">
                                         <img src="img/remove.gif" alt="Remove product" />
                                     </a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>
-                                    <img src="img/main-product.png" alt="Product" width="65" height="37" />
-                                    Product Name
-                                </td>
-                                <td>$400</td>
-                                <td>
-                                    <input type="text" value="2" maxlength="2" class="qty" />
-                                    <a href="#">
-                                        <img src="img/refresh.gif" alt="Refresh cart" />
-                                    </a>
-                                </td>
-                                <td>
-                                    $800
-                                    <a href="#">
-                                        <img src="img/remove.gif" alt="Remove product" />
-                                    </a>
-                                </td>
-                            </tr>
+                        <?php endforeach; ?>
+                        <?php endif; ?>
                             <tr class="total">
                                 <td colspan="5">
-                                    Subtotal: $1200<br />
-                                    <span>TOTAL: $1200</span><br />
+                                    <br />
+                                    <span>TOTAL: $<?= $ordertotal; ?></span><br />
 
                                     <a href="#" class="tertiary-btn">CONTINUE SHOPPING</a>
                                     <input type="submit" value="CHECKOUT WITH PAYPAL" class="secondary-cart-btn">

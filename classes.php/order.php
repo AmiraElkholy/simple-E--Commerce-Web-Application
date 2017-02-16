@@ -87,8 +87,9 @@ class order
         return $result->fetch_object();
     }
     static function hasThisInCart($idproduct,$iduser){
-        if (order::hasOrderInCart($iduser)) {
-            if (order::isInOrder($idproduct)) {
+         $order = order::hasOrderInCart($iduser);
+        if ($order) {
+            if (order::isInOrder($idproduct,$order->idorder)) {
                 return true;
             }
         }
@@ -126,6 +127,9 @@ class order
         $result = $stmt->get_result();
         while($obj = $result->fetch_object()) {
             $this->products[]=$obj;
+            $prod = product::selectbyid($obj->idproduct);
+            $obj->image = $prod->image;
+            $obj->name = $prod->name;       
         }
     }
     //=======================================================================================================

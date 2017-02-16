@@ -1,7 +1,8 @@
 <?php  
 	$isincart = false;
 	if($loguser) {
-		//$isincart = order::hasThisInCart($product->idproduct, $loguser->iduser);
+		$isincart = order::hasThisInCart($product->idproduct, $loguser->iduser);
+        // var_dump($isincart);
 	}
 ?>
 

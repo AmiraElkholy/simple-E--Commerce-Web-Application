@@ -849,7 +849,7 @@ header a:link, header a:visited {
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-    width: 20px;
+    width: 50px;
 }
 
 #shopping-cart td span {
@@ -1408,10 +1408,6 @@ span.form-error {
 #view-info label:nth-child(odd) {
     color: grey;
 }
-/*#listings p.subcat {
-    color: grey;
-    margin-top: -10px;
-}*/
 #listings {
     min-height: 200px;
 }
@@ -1426,11 +1422,7 @@ span.form-error {
     background-color: green;
 }
 #lblform {
-    /*display: inline-block;*/
-    /*float: right;*/
     width: 400px;
-    /*margin-right: 100px;
-    margin-top: 10px;*/
 }
 #search2 {
     display: inline-block;  
@@ -1445,10 +1437,10 @@ input[type=radio]:checked + label {
 .clearboth {
     clear: both;
 }
-.msg {
+/*.msg {
     padding: 0;
     margin: 0;
-}
+}*/
 .catman{
 width:600px;
 margin:10px 0 20px 30px;

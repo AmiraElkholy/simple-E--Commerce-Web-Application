@@ -1,17 +1,18 @@
 <?php
     require_once('isuser.php');
-    if(isset($_GET['name']&&!empty($_GET['name']))) {
+    
+    if(isset($_GET['name'])&&!empty($_GET['name'])) {
         $product = product::selectbyname($_GET['name']);
         if(!$product) {
             echo "failed to view product";
             die;
         }
-    }
+    } 
     else {
         echo "no product selected to display";
-        die;
+            exit;
     }
- ?>
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
