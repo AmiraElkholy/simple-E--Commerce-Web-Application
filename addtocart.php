@@ -14,6 +14,7 @@ if ($loguser) {
             else echo "failed to add to cart";
         }
     }
+    header("Location: shopping-cart.php");
 }
 else {
     header("Location: signin.php?error=Sorry You need to login ");
