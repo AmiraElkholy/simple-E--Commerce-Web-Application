@@ -6,6 +6,9 @@
     }
     $cart=order::selectCart($loguser->iduser);
     $cart->setProducts();
-    $cart->checkout($loguser);
+    if ($cart->checkout($loguser)) {
+        # code...
+    }
+
 //=================================================================================
  ?>

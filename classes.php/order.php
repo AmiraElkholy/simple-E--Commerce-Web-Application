@@ -141,6 +141,8 @@ class order
             $product->quantity -= $value->quantity;
             $product->update();
         }
+        $this->iscart=0;
+        return $this->updateIsCart();
     }
     function calcTotAmount(){
         $total=0;
@@ -150,7 +152,11 @@ class order
         }
         return $total;
     }
+    function updateIsCart(){
+        require 'config.php';
+        $stmt = $mysqli->prepare("UPDATE `E-Commerce`.`order` SET `iscart` = 0
+            WHERE `idorder` = $this->idorder");
+        return $stmt->execute();
+    }
     //=======================================================================================================
-}
-
- ?>
+}?>
