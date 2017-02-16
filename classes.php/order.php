@@ -62,7 +62,7 @@ class order
         $stmt->bind_param('i', $iduser);
         if ($stmt->execute()) {
             $result = $stmt->get_result();
-            $result->fetch_object('order');
+            $order=$result->fetch_object('order');
             return $order;
         }
         else return false;
@@ -72,7 +72,9 @@ class order
         $stmt= $mysqli->prepare("SELECT * FROM `E-Commerce`.orderproduct
             WHERE idorder=? AND idproduct=?");
         $stmt->bind_param('ii',$idorder,$idproduct);
-        return $stmt->execute();
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_object();
     }
     static function hasThisInCart($idproduct,$iduser){
         if (order::hasOrderInCart($iduser)) {
@@ -93,8 +95,6 @@ class order
         require 'config.php';
         $stmt = $mysqli->prepare("INSERT INTO `E-Commerce`.`orderproduct`
         VALUES(?,?,?,?)");
-        echo "idorder: ".$this->idorder."  idproduct: ".$product->idproduct.
-            "   price: ".$product->price." qty: ".$product->qty;
         $stmt->bind_param('iidi',$this->idorder,$product->idproduct,
             $product->price,$product->qty);
         if($stmt->execute()){
