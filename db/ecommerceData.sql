@@ -75,7 +75,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin@site.com','admin','d033e22ae348aeb5660fc2140aec35850c4da997','1990-12-01','job','address',500,1,0);
+INSERT INTO `user` VALUES (1,'admin@site.com','d033e22ae348aeb5660fc2140aec35850c4da997','admin','1990-12-01','job','address',500,1,0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
