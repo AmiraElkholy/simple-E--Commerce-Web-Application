@@ -140,7 +140,7 @@ class order
         $total=0;
         foreach ($this->products as $key => $value) {
             $product= product::selectbyid($value->idproduct);
-            $total+=$product->price;
+            $total+=($value->unitprice*$value->quantity);
         }
         return $total;
     }
