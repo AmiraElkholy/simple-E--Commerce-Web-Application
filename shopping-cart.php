@@ -9,7 +9,6 @@
     if($cart) {
         $cart->setProducts();
         $products = $cart->products;
-        // var_dump($products);
     }
     $ordertotal = 0;
     if(isset($_GET['error'])) {
@@ -62,7 +61,7 @@
                             </tr>
                         <?php if($products): ?>
                             <?php foreach ($products as $product): ?>
-                            <?php 
+                            <?php
                                 $subtotal = $product->quantity * $product->unitprice;
                                 $ordertotal += intval($subtotal);
                             ?>

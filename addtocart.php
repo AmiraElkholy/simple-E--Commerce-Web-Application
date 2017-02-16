@@ -8,10 +8,13 @@ if ($loguser) {
             if (!$order=order::hasOrderInCart($loguser->iduser)) {
                 $order = order::createobj($loguser->iduser);
                 $order->insert();
+                $order=order::selectCart($loguser->iduser);
+                @$order->addProduct($product);
             }
-            if (!order::isInOrder($product->idproduct,$order->idorder)) {
-                if (@$order->addProduct($product)) echo "product added to cart";
-                else echo "failed to add to cart";
+            else {
+                if (!order::isInOrder($product->idproduct,$order->idorder)) {
+                    @$order->addProduct($product);
+                }
             }
         }
     }
