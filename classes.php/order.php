@@ -54,6 +54,16 @@ class order
         }
         return $orders;
     }
+    static function selectCart($iduser){
+        require 'config.php';
+        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.order
+            WHERE `iduser` = ? AND isdeleted = 0 AND iscart = 1");
+        $stmt->bind_param('i', $iduser);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $obj=$result->fetch_object('order');
+        return $obj;
+    }
     //=======================================================================================================
     static function hasOrderInCart($iduser){
         require 'config.php';
@@ -109,15 +119,14 @@ class order
         WHERE idorder=$this->idorder AND idproduct=$product->idproduct");
         return $stmt->execute();
     }
-    function getProducts(){
+    function setProducts(){
         require 'config.php';
         $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.orderproduct WHERE idorder = $this->idorder");
         $stmt->execute();
         $result = $stmt->get_result();
-        while($obj = $result->fetch_obj()) {
+        while($obj = $result->fetch_object()) {
             $this->products[]=$obj;
         }
-        return $products;
     }
 
 }

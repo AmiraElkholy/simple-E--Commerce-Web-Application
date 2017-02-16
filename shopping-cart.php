@@ -4,12 +4,10 @@
         header('Location: signin.php?error=you are not logged in, please log in first');
         exit;
     }
-
-
-
-
+    $cart=order::selectCart($loguser->iduser);
+    $cart->setProducts();
+    var_dump($cart->products);
 ?>
-
 
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
