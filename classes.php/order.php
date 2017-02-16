@@ -134,9 +134,12 @@ class order
         if ($total > $loguser->creditlimit) {
             return false;
         }
+        $loguser->creditlimit -= $total;
+        $loguser->update();
         foreach ($this->products as $key => $value) {
-            var_dump($value);
-            product::selectbyid($value->idproduct)->quantity -= $value->quantity;
+            $product=product::selectbyid($value->idproduct);
+            $product->quantity -= $value->quantity;
+            $product->update();
         }
     }
     function calcTotAmount(){

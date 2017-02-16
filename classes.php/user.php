@@ -23,7 +23,7 @@ class user{
 
     function isvalidemail($email) {
         $exists = $this->selectbyemail($email);
-        if($exists) 
+        if($exists)
             return false;
         else
             return true;
@@ -74,12 +74,12 @@ class user{
         }
         else {
             return false;
-        } 
+        }
     }
 
     function delete() {
         require 'config.php';
-    
+
         $query = "update user set isdeleted = 1 where iduser = ? and isdeleted != 1 and name != 'admin'";
 
         $stmt = $mysqli->prepare($query);
@@ -189,7 +189,7 @@ class user{
         $job = $this->job;
         $address = $this->address;
         $creditlimit = $this->creditlimit;
-        
+
 
         $stmt->bind_param('sssssssi', $name, $email, $password, $birthdate, $job, $address, $creditlimit, $iduser);
 
@@ -201,10 +201,9 @@ class user{
         // $stmt->execute();
         // $result = $stmt->get_result();
         // $obj = $result->fetch_object();
-        
+
 
         if($stmt->affected_rows > 0) {
-            echo "user successfully updated";
             return $this;
         }
         else {
@@ -220,8 +219,8 @@ class user{
 
         if(!$stmt){
             echo "preparation failed ".$mysqli->errno." : ".$mysqli->error."<br>";
-        } 
-        
+        }
+
         $stmt->execute();
 
         $result = $stmt->get_result();
@@ -252,7 +251,7 @@ class user{
         $password =  $this->password;
 
         $stmt->bind_param('ss', $email, $password);
-        
+
         $stmt->execute();
 
         $result = $stmt->get_result();
@@ -273,7 +272,7 @@ class user{
         }
         else {
             return false;
-        }       
+        }
     }
 
 
@@ -282,7 +281,7 @@ class user{
         $interests = $cat->selectind();
         return $interests;
     }
-    
+
 
 
 }
