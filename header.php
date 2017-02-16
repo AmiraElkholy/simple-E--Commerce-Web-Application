@@ -47,7 +47,7 @@
                                         <?php endif; ?>
                                         <li><a href="profile.php">My Account</a></li>
                                         <li><a href="update-user-info.php">Update My Info</a></li>
-                                        <li><a href="#">Order History</a></li>
+                                        <li><a href="order-history.php">Order History</a></li>
                                         <li><a href="signout.php">Sign Out</a></li>
                                     </ul>
                                 </li>
