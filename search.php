@@ -11,7 +11,7 @@
 		if($searchby == "price") {
 			$products = product::searchbyprice($keyword);
 		}
-		else if($searchby == "name") {
+		else {
 			$products = product::searchbyname($keyword);
 		}
 	}
@@ -144,10 +144,10 @@
                 <!-- <h2 id="search2">Search Results</h2>
                 <hr class="clearboth"> -->
                 <form id="lblform" action="<?= htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-            	 	<input type="search" placeholder="Search by product name" class="search" name="searchbox" id="searchbox">
+            	 	<input type="search" placeholder="search by name or price" class="search" name="searchbox" id="searchbox">
                 	<input type="submit" value="Search" class="search submit">
                 	<br><br>
-                	<input type="radio" name="searchby" value="name" checked>
+                	<input type="radio" name="searchby" value="name">
                 	<label class="searchlbl">
                 	 Search by NAME</label>
                 	<input type="radio" name="searchby" value="price">
