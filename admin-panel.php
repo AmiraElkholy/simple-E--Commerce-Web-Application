@@ -41,6 +41,7 @@
                         <li><a href="users-list.php">Manage users</a></li>
                         <li><a href="catmanagement.php">Manage categories</a></li>
                         <li><a href="add-category.php">Add new category</a></li>
+                        <li><a href="prodmanagement.php">Manage products</a></li>
                         <li><a href="new-product.php">Add new product</a></li>
                     </ul>
 

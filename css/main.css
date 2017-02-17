@@ -1477,3 +1477,12 @@ select {
     border-radius: 10px;
     font-size: large;
 }
+
+/*table td {
+    text-align: center !important;
+}*/
+a.update-prod:link , a.update-prod:visited {
+    color: #5daad0;
+    margin-right: -70px;
+    margin-left: 40px;
+}

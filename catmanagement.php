@@ -36,7 +36,7 @@
             <section id="main-content" class="clearfix">
                 <div id="shopping-cart"">
                     <section id='view-info' class='catman'>
-                    <h1>Manage Categories</h1>
+                    <h1>Manage Categories:</h1>
                     <a class='add' href=add-category.php>add new category</a></br></br>
                     <?php
                     require_once 'auto_load.php';
