@@ -25,7 +25,7 @@ class order
     }
     static function selectAll() {
         require 'config.php';
-        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.order WHERE isdeleted = 0 AND iscart = 0");
+        $stmt = $mysqli->prepare("SELECT * FROM order WHERE isdeleted = 0 AND iscart = 0");
         $stmt->execute();
         $result = $stmt->get_result();
         while($obj = $result->fetch_object('order')) {
@@ -35,7 +35,7 @@ class order
     }
     static function selectbyid($idorder) {
         require 'config.php';
-        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.order
+        $stmt = $mysqli->prepare("SELECT * FROM order
             WHERE `idorder` = ? AND isdeleted = 0 AND iscart = 0");
         $stmt->bind_param('i', $idorder);
         $stmt->execute();
@@ -44,7 +44,7 @@ class order
     }
     static function selectbyUserid($iduser){
         require 'config.php';
-        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.order
+        $stmt = $mysqli->prepare("SELECT * FROM order
             WHERE `iduser` = ? AND isdeleted = 0 AND iscart = 0");
         $stmt->bind_param('i', $iduser);
         $stmt->execute();
@@ -57,7 +57,7 @@ class order
     }
     static function selectCart($iduser){
         require 'config.php';
-        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.order
+        $stmt = $mysqli->prepare("SELECT * FROM order
             WHERE `iduser` = ? AND isdeleted = 0 AND iscart = 1");
         $stmt->bind_param('i', $iduser);
         $stmt->execute();
@@ -68,7 +68,7 @@ class order
     //=======================================================================================================
     static function hasOrderInCart($iduser){
         require 'config.php';
-        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.order
+        $stmt = $mysqli->prepare("SELECT * FROM order
             WHERE `iduser` = ? AND isdeleted = 0 AND iscart = 1");
         $stmt->bind_param('i', $iduser);
         if ($stmt->execute()) {
@@ -80,7 +80,7 @@ class order
     }
     static function isInOrder($idproduct,$idorder){
         require 'config.php';
-        $stmt= $mysqli->prepare("SELECT * FROM `E-Commerce`.orderproduct
+        $stmt= $mysqli->prepare("SELECT * FROM orderproduct
             WHERE idorder=? AND idproduct=?");
         $stmt->bind_param('ii',$idorder,$idproduct);
         $stmt->execute();
@@ -99,13 +99,13 @@ class order
     //=======================================================================================================
     function insert() {
         require 'config.php';
-        $stmt = $mysqli->prepare("INSERT INTO `E-Commerce`.`order`(`iduser`)VALUES(?)");
+        $stmt = $mysqli->prepare("INSERT INTO `order`(`iduser`)VALUES(?)");
         $stmt->bind_param('i',$this->iduser);
         return $stmt->execute();
     }
     function addProduct($product){
         require 'config.php';
-        $stmt = $mysqli->prepare("INSERT INTO `E-Commerce`.`orderproduct`
+        $stmt = $mysqli->prepare("INSERT INTO `orderproduct`
         VALUES(?,?,?,?)");
         $stmt->bind_param('iidi',$this->idorder,$product->idproduct,
             $product->price,$product->qty);
@@ -117,13 +117,13 @@ class order
     }
     function removeProduct($product){
         require 'config.php';
-        $stmt = $mysqli->prepare("DELETE FROM `E-Commerce`.`orderproduct`
+        $stmt = $mysqli->prepare("DELETE FROM `orderproduct`
         WHERE idorder=$this->idorder AND idproduct=$product->idproduct");
         return $stmt->execute();
     }
     function setProducts(){
         require 'config.php';
-        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.orderproduct WHERE idorder = $this->idorder");
+        $stmt = $mysqli->prepare("SELECT * FROM orderproduct WHERE idorder = $this->idorder");
         $stmt->execute();
         $result = $stmt->get_result();
         while($obj = $result->fetch_object()) {
@@ -159,7 +159,7 @@ class order
     }
     function updateIsCart(){
         require 'config.php';
-        $stmt = $mysqli->prepare("UPDATE `E-Commerce`.`order` SET `iscart` = 0 ,
+        $stmt = $mysqli->prepare("UPDATE `order` SET `iscart` = 0 ,
             `date` = CURRENT_TIMESTAMP WHERE `idorder` = $this->idorder");
         return $stmt->execute();
     }

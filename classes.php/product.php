@@ -29,7 +29,7 @@ class product{
     }
     static function selectAll() {
         require 'config.php';
-        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.product WHERE isdeleted = 0");
+        $stmt = $mysqli->prepare("SELECT * FROM product WHERE isdeleted = 0");
         $stmt->execute();
         $result = $stmt->get_result();
         while($obj = $result->fetch_object('product')) {
@@ -39,7 +39,7 @@ class product{
     }
     static function selectAllbycatid($catid) {
         require 'config.php';
-        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.product WHERE isdeleted = 0 AND idcategory = ?");
+        $stmt = $mysqli->prepare("SELECT * FROM product WHERE isdeleted = 0 AND idcategory = ?");
         $stmt->bind_param('i', $catid);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -51,7 +51,7 @@ class product{
     }
     static function selectbyname($name) {
         require 'config.php';
-        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.product
+        $stmt = $mysqli->prepare("SELECT * FROM product
             WHERE `name` = ? AND isdeleted = 0");
         $stmt->bind_param('s', $name);
         $stmt->execute();
@@ -61,7 +61,7 @@ class product{
     static function searchbyname($name) {
         require 'config.php';
         $likeName = '%'.$name.'%';
-        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.product
+        $stmt = $mysqli->prepare("SELECT * FROM product
             WHERE `name` like ? AND isdeleted = 0");
         $stmt->bind_param('s', $likeName);
         $stmt->execute();
@@ -74,7 +74,7 @@ class product{
     }
     static function searchbyprice($price) {
         require 'config.php';
-        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.product
+        $stmt = $mysqli->prepare("SELECT * FROM product
             WHERE `price` <= ? AND isdeleted = 0");
         $stmt->bind_param('s', $price);
         $stmt->execute();
@@ -87,7 +87,7 @@ class product{
     }
     static function selectbyid($idproduct) {
         require 'config.php';
-        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.product
+        $stmt = $mysqli->prepare("SELECT * FROM product
             WHERE `idproduct` = ? AND isdeleted = 0");
         $stmt->bind_param('i', $idproduct);
         $stmt->execute();
@@ -96,7 +96,7 @@ class product{
     }
     function insert() {
         require 'config.php';
-        $stmt = $mysqli->prepare("INSERT INTO `E-Commerce`.`product`
+        $stmt = $mysqli->prepare("INSERT INTO `product`
         VALUES(null,?,?,?,?,?,?,?)");
         $stmt->bind_param('sdissii',$this->name,$this->price,$this->quantity,
         $this->description,$this->image,$this->idcategory,$this->isdeleted);
@@ -104,7 +104,7 @@ class product{
     }
     function update() {
         require 'config.php';
-        $stmt = $mysqli->prepare("UPDATE `E-Commerce`.`product`
+        $stmt = $mysqli->prepare("UPDATE `product`
             SET
             `name` = ?,
             `price` = ?,
@@ -121,7 +121,7 @@ class product{
     }
     function delete(){
         require 'config.php';
-        $stmt = $mysqli->prepare("UPDATE `E-Commerce`.`product`
+        $stmt = $mysqli->prepare("UPDATE `product`
             SET `isdeleted` = 1 WHERE `idproduct` = $this->idproduct");
         $stmt->bind_param('s',$this->name);
         return $stmt->execute();
