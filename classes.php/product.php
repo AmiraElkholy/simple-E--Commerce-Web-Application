@@ -119,6 +119,17 @@ class product{
         $this->description,$this->image,$this->idcategory,$this->isdeleted);
         return $stmt->execute();
     }
+    function delete(){
+        require 'config.php';
+        $stmt = $mysqli->prepare("UPDATE `E-Commerce`.`product`
+            SET
+            `isdeleted` = ?
+            WHERE `idproduct` = $this->idproduct
+            ");
+        $stmt->bind_param('sdissii',$this->name,$this->price,$this->quantity,
+        $this->description,$this->image,$this->idcategory,$this->isdeleted);
+        return $stmt->execute();
+    }
     //==========================================================================
     //Controller methods
     static public function imageUpHandle(){
@@ -191,15 +202,18 @@ class product{
                 @$newproduct = product::createobj($_POST['name'],floatval($_POST['price']),
                 intval($_POST['quantity']),$_POST['description'],
                 $_FILES['image']['name'],intval($_POST['idcategory']));
-                $newproduct->id = product::selectbyname($oldname)->id;
+                $newproduct->idproduct = product::selectbyname($oldname)->idproduct;
                 if($newproduct->update()){
                     echo "<p class='message'> Product Updated Successfully </p>";
+
                 }
                 else{
                     echo "<p class='error'>Failed to update Product</p>";
+
                 }
             }
             else echo "<p class='error'>Failed to Upload Product image</p>";
+
         }
     }
 }?>
