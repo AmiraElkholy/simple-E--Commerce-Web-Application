@@ -60,13 +60,13 @@
                                 <th>Subtotal</th>
                             </tr>
                         <?php if($products): ?>
-                            <?php foreach ($products as $product): ?>
+                            <?php foreach ($products as $key=>$product): ?>
                             <?php
                                 $subtotal = $product->quantity * $product->unitprice;
                                 $ordertotal += intval($subtotal);
                             ?>
                             <tr>
-                                <td><?= $product->idproduct; ?></td>
+                                <td><?= $key+1; ?></td>
                                 <td>
                                     <img src="img/products/<?= $product->image; ?>" alt="Product" width="65" height="37" />
                                     <?= $product->name ?>
