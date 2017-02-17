@@ -25,7 +25,7 @@ class order
     }
     static function selectAll() {
         require 'config.php';
-        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.order WHERE isdeleted = 0 AND iscart = 0");
+        $stmt = $mysqli->prepare("SELECT * FROM `order` WHERE isdeleted = 0 AND iscart = 0");
         $stmt->execute();
         $result = $stmt->get_result();
         while($obj = $result->fetch_object('order')) {
@@ -35,7 +35,7 @@ class order
     }
     static function selectbyid($idorder) {
         require 'config.php';
-        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.order
+        $stmt = $mysqli->prepare("SELECT * FROM `order`
             WHERE `idorder` = ? AND isdeleted = 0 AND iscart = 0");
         $stmt->bind_param('i', $idorder);
         $stmt->execute();
@@ -44,7 +44,7 @@ class order
     }
     static function selectbyUserid($iduser){
         require 'config.php';
-        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.order
+        $stmt = $mysqli->prepare("SELECT * FROM `order`
             WHERE `iduser` = ? AND isdeleted = 0 AND iscart = 0");
         $stmt->bind_param('i', $iduser);
         $stmt->execute();
@@ -57,7 +57,7 @@ class order
     }
     static function selectCart($iduser){
         require 'config.php';
-        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.order
+        $stmt = $mysqli->prepare("SELECT * FROM `order`
             WHERE `iduser` = ? AND isdeleted = 0 AND iscart = 1");
         $stmt->bind_param('i', $iduser);
         $stmt->execute();
@@ -68,7 +68,7 @@ class order
     //=======================================================================================================
     static function hasOrderInCart($iduser){
         require 'config.php';
-        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.order
+        $stmt = $mysqli->prepare("SELECT * FROM `order`
             WHERE `iduser` = ? AND isdeleted = 0 AND iscart = 1");
         $stmt->bind_param('i', $iduser);
         if ($stmt->execute()) {
