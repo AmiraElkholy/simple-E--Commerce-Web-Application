@@ -1,4 +1,4 @@
-<?php  
+<?php
     $cat = new category();
     $categories = $cat->selectind();
 ?>
@@ -69,10 +69,10 @@
 
                     </div><!-- end user-menu -->
 
-                    <div id="view-cart">                                           
-                        <?php if($loguser&&$loguser->isadmin==1): ?>
+                    <div id="view-cart">
+                        <!-- <?php if($loguser&&$loguser->isadmin==1): ?>
                         <a href="admin-panel.php" id="admin-panel"><img src="img/admin.ico" alt="Admin Panel"> Admin Panel</a>
-                        <?php endif; ?>
+                        <?php endif; ?> -->
                         <a href="shopping-cart.php"><img src="img/blue-cart.gif" alt="View Cart"> View Cart</a>
                     </div><!-- end view-cart && admin-panel -->
                 </section><!-- end action-bar -->

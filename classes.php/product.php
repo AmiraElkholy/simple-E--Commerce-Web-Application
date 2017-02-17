@@ -122,12 +122,8 @@ class product{
     function delete(){
         require 'config.php';
         $stmt = $mysqli->prepare("UPDATE `E-Commerce`.`product`
-            SET
-            `isdeleted` = ?
-            WHERE `idproduct` = $this->idproduct
-            ");
-        $stmt->bind_param('sdissii',$this->name,$this->price,$this->quantity,
-        $this->description,$this->image,$this->idcategory,$this->isdeleted);
+            SET `isdeleted` = 1 WHERE `idproduct` = $this->idproduct");
+        $stmt->bind_param('s',$this->name);
         return $stmt->execute();
     }
     //==========================================================================
