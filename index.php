@@ -41,7 +41,7 @@
                     <h1>Today's Deals</h1>
                     <p>Checkout this section of<br />
                      products at a discounted price.</p>
-                    <a href="#" id="shopnow" class="default-btn">Shop Now</a>
+                    <a href="#products" id="shopnow" class="default-btn">Shop Now</a>
                 </div><!-- end promo-details -->
                 <img src="img/promo.png" alt="Promotional Ad">
             </section><!-- promo -->
