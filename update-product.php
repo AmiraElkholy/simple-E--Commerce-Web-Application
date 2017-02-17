@@ -1,7 +1,7 @@
 <?php
     require_once 'isadmin.php';
-    if (isset($_GET['productname'])) {
-        product::updateProduct($_GET['productname']);
+    if (isset($_GET['name'])) {
+        product::updateProduct($_GET['name']);
     }
 
  ?>
@@ -36,7 +36,7 @@
 
             <section id="main-content" class="clearfix">
                 <div id="new-account">
-                    <h1>Add New Product</h1>
+                    <h1>Update Product</h1>
 
                     <form action="#" method="post" enctype="multipart/form-data">
                         <p>

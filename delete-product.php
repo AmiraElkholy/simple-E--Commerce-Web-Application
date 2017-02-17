@@ -1,12 +1,12 @@
 <?php
     require_once 'isadmin.php';
-    if (isset($_GET['productname'])) {
-        $product=product::selectbyname($_GET['productname']);
+    if (isset($_GET['name'])) {
+        $product=product::selectbyname($_GET['name']);
         if ($product->delete()) {
-            echo "success";
+            header("Location: prodmanagement.php?message=Product Deleted Successfully");
         }
         else {
-            echo "fail";
+            header("Location: prodmanagement.php?error=failed to delete product");
         }
     }
 

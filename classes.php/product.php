@@ -35,7 +35,7 @@ class product{
         while($obj = $result->fetch_object('product')) {
             $products[]=$obj;
         }
-        return $products;
+        return @$products;
     }
     static function selectAllbycatid($catid) {
         require 'config.php';
@@ -199,16 +199,14 @@ class product{
                 intval($_POST['quantity']),$_POST['description'],
                 $_FILES['image']['name'],intval($_POST['idcategory']));
                 $newproduct->idproduct = product::selectbyname($oldname)->idproduct;
-                if($newproduct->update()){
-                    echo "<p class='message'> Product Updated Successfully </p>";
-
+                if ($newproduct->update()) {
+                    header("Location: prodmanagement.php?message=Product Updated Successfully");
                 }
-                else{
-                    echo "<p class='error'>Failed to update Product</p>";
-
+                else {
+                    header("Location: prodmanagement.php?error=failed to Update product");
                 }
             }
-            else echo "<p class='error'>Failed to Upload Product image</p>";
+            else header("Location: prodmanagement.php?error=failed to Update product");
 
         }
     }
