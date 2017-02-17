@@ -99,7 +99,7 @@ class order
     //=======================================================================================================
     function insert() {
         require 'config.php';
-        $stmt = $mysqli->prepare("INSERT INTO `E-Commerce`.`order`(`iduser`)VALUES(?)");
+        $stmt = $mysqli->prepare("INSERT INTO `order`(`iduser`)VALUES(?)");
         $stmt->bind_param('i',$this->iduser);
         return $stmt->execute();
     }
@@ -159,7 +159,7 @@ class order
     }
     function updateIsCart(){
         require 'config.php';
-        $stmt = $mysqli->prepare("UPDATE `E-Commerce`.`order` SET `iscart` = 0 ,
+        $stmt = $mysqli->prepare("UPDATE `order` SET `iscart` = 0 ,
             `date` = CURRENT_TIMESTAMP WHERE `idorder` = $this->idorder");
         return $stmt->execute();
     }
