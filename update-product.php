@@ -1,6 +1,21 @@
 <?php
-    require "isadmin.php";
-    product::addNewProduct();
+    require_once "isadmin.php";
+    if(isset($_GET['id'])&&!empty($_GET['id'])) {
+        $id = $_GET['id'];
+        $product = product::selectbyid($id); 
+        if(!$product) {
+            echo "failed to view product to update";
+            die;
+        }
+    }
+    else {
+        echo "no product selected to update";
+        exit;
+    }
+    if($_POST) {
+
+    }
+    
  ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -10,7 +25,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>eCommerce - Add New Product</title>
+        <title>eCommerce - Update Product</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -33,41 +48,41 @@
 
             <section id="main-content" class="clearfix">
                 <div id="new-account">
-                    <h1>Add New Product</h1>
+                    <h1>Update Product</h1>
 
                     <form action="#" method="post" enctype="multipart/form-data">
                         <p>
                             <label for="name">
                                 <span class="required-field">*</span> Product name
                             </label>
-                            <input type="text" id="name" name="name" required>
+                            <input type="text" id="name" name="name" required value="<?= $product->name; ?>">
                         </p>
                         <p>
                             <label for="price">
                                 <span class="required-field">*</span> Product price
                             </label>
-                            <input type="number" id="price" name="price" min="0.01" step="0.01" required><span> $</span>
+                            <input type="number" id="price" name="price" min="0.01" step="0.01" required value="<?= $product->price; ?>"><span> $</span>
                         </p>
                         <p>
                             <label for="quantity">
                                 <span class="required-field">*</span> Product quantity
                             </label>
-                            <input type="number" id="quantity" name="quantity" min="0" required>
+                            <input type="number" id="quantity" name="quantity" min="0" required value="<?= $product->quantity; ?>">
                         </p>
                         <p>
                             <label for="description">
                                 <span class="required-field">*</span> Product description
                             </label>
-                            <textarea id="description" name="description" required  rows="6"></textarea>
+                            <textarea id="description" name="description" required  rows="6"><?= $product->description; ?></textarea>
                         </p>
                         <p>
                             <label for="image">
                                 <span class="required-field">*</span>Product image
                             </label>
                             <input type="hidden" name="MAX_FILE_SIZE" value="5000000">
-                            <input type="file" id="image" name="image" accept="image/jpeg" accept="image/x-png" required>
+                            <input type="file" id="image" name="image" accept="image/jpeg" accept="image/x-png"><br><span>&nbsp;&nbsp; only upload new if want to change image</span>
                         </p>
-                        <p>
+                        <!-- <p>
                             <label for="idcategory">
                                 <span class="required-field">*</span>Product category
                             </label>
@@ -84,7 +99,7 @@
                                 }
                             ?>
                             </select>
-                        </p>
+                        </p> -->
 
                         <p>Fields marked with <span class="required-field">*</span> are required.</p>
 
