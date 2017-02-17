@@ -80,7 +80,7 @@ class order
     }
     static function isInOrder($idproduct,$idorder){
         require 'config.php';
-        $stmt= $mysqli->prepare("SELECT * FROM `E-Commerce`.orderproduct
+        $stmt= $mysqli->prepare("SELECT * FROM orderproduct
             WHERE idorder=? AND idproduct=?");
         $stmt->bind_param('ii',$idorder,$idproduct);
         $stmt->execute();
@@ -105,7 +105,7 @@ class order
     }
     function addProduct($product){
         require 'config.php';
-        $stmt = $mysqli->prepare("INSERT INTO `E-Commerce`.`orderproduct`
+        $stmt = $mysqli->prepare("INSERT INTO orderproduct
         VALUES(?,?,?,?)");
         $stmt->bind_param('iidi',$this->idorder,$product->idproduct,
             $product->price,$product->qty);
@@ -117,13 +117,13 @@ class order
     }
     function removeProduct($product){
         require 'config.php';
-        $stmt = $mysqli->prepare("DELETE FROM `E-Commerce`.`orderproduct`
+        $stmt = $mysqli->prepare("DELETE FROM orderproduct
         WHERE idorder=$this->idorder AND idproduct=$product->idproduct");
         return $stmt->execute();
     }
     function setProducts(){
         require 'config.php';
-        $stmt = $mysqli->prepare("SELECT * FROM `E-Commerce`.orderproduct WHERE idorder = $this->idorder");
+        $stmt = $mysqli->prepare("SELECT * FROM orderproduct WHERE idorder = $this->idorder");
         $stmt->execute();
         $result = $stmt->get_result();
         while($obj = $result->fetch_object()) {
