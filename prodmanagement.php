@@ -37,7 +37,7 @@
             <section id="main-content" class="clearfix">
                 <div id="shopping-cart">
                     <h1>Manage Products: </h1>
-                    <a class="add" href="new-product.php">add new product</a>
+                    <a id="floatadd" class="add" href="new-product.php">add new product</a>
                     <br><br>
                         <table border="1">
                             <tr>
