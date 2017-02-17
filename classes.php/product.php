@@ -183,4 +183,23 @@ class product{
             else echo "<p class='error'>Failed to Upload Product image</p>";
         }
     }
+    static public function updateProduct($oldname){
+        if (isset($_POST['name'],$_POST['price'],$_POST['quantity'],
+            $_POST['description'],$_POST['idcategory'],$_FILES['image'])) {
+
+            if(product::imageUpHandle()){
+                @$newproduct = product::createobj($_POST['name'],floatval($_POST['price']),
+                intval($_POST['quantity']),$_POST['description'],
+                $_FILES['image']['name'],intval($_POST['idcategory']));
+                $newproduct->id = product::selectbyname($oldname)->id;
+                if($newproduct->update()){
+                    echo "<p class='message'> Product Updated Successfully </p>";
+                }
+                else{
+                    echo "<p class='error'>Failed to update Product</p>";
+                }
+            }
+            else echo "<p class='error'>Failed to Upload Product image</p>";
+        }
+    }
 }?>
