@@ -12,7 +12,23 @@
     if(isset($_GET['message'])) {
         echo "<p class='message'>".$_GET['message']."</p>";
     }
+
+    $order=order::selectbyUserid($loguser->iduser);
     
+    $user = false;
+
+    if(isset($_GET['id'])&&!empty($_GET['id'])) {
+        @require_once 'isadmin.php';
+        $id = $_GET['id'];
+        $order = order::selectbyUserid($id);
+        $user = new user();
+        $state = $user->selectbyid($id); 
+        if(!$state) {
+            echo "failed to display user order history";
+            die;
+        }
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -56,16 +72,22 @@
                 </aside><!-- end my-account-menu -->
 
                 <div id="order-history">
-                    <h1>Order History</h1>
+                    <h1>
+                    <?php if(!$user) {
+                        echo "Your ";
+                        } 
+                    echo "Order History";
+                    if($user) {
+                        echo " of <b>$user->name</b>";
+                     } ?>    
+                    </h1>
                     
-                    <?php
-                        $order=order::selectbyUserid($loguser->iduser);
-                        
-                    ?>
+
                     <?php if($order): ?>
                     <table border="1">
                         <tr>
                             <td>Order ID</td>
+                            <td>Order Details</td>
                             <td>Date - Time</td>
                             <td>Total Amount</td>
                         </tr>
@@ -75,6 +97,23 @@
                         $amount=$ord->calcTotAmount();
                         echo "<tr>";
                             echo "<td>$ord->idorder</td>";
+                            echo "<td>";
+                            echo "<ul>"; 
+                            $i = 1;
+                            foreach ($ord->products as $product) {
+                                echo "<li>$i)<br>";
+                                echo "- product name: $product->name<br>";
+                                echo "- unit price: $$product->unitprice<br>";
+                                echo "- ordered quantity: $product->quantity<br>";
+                                $subtotal = $product->unitprice*$product->quantity;
+                                echo "- product subtotal: $$subtotal";
+                                echo "</li>";
+                                echo "<br>";
+                                $i++;
+                                //if($i-1!=count($ord->products)) echo "<hr>";
+                            }
+                            echo "</ul>";
+                            echo "</td>";
                             echo "<td>$ord->date</td>";
                             echo "<td>$amount</td>";
                         echo "</tr>";

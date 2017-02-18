@@ -40,7 +40,7 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>Credit Limit</th>
+                                <th>Credit Limit & Order History</th>
                                 <th>controls</th>
                             </tr>
                             <?php 
@@ -53,7 +53,9 @@
 									echo "<td>".$user->iduser."</td>";
 									echo "<td>".$user->name."</td>";
 									echo "<td>".$user->email."</td>";
-									echo "<td>".$user->creditlimit."</td>";
+									echo "<td>".$user->creditlimit;
+                                    echo " &nbsp;--- <a style='text-decoration:none' href=order-history.php?id=$user->iduser>order history</a>";
+                                    echo "</td>";
 									echo "<td>";
 							?>
 
