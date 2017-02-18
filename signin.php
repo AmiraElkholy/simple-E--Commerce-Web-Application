@@ -22,7 +22,7 @@
             header('Location: admin-panel.php');
         }
         else {
-            header('Location: shopping-cart.php');
+            header('Location: index.php');
         }
     }
   

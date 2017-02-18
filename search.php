@@ -20,7 +20,7 @@
 
 		$keyword = $_GET['searchbox'];
 
-		$products = product::searchbyname($productname);
+		$products = product::searchbyname($keyword);
 
 	}
 

@@ -139,15 +139,13 @@
                         	<label>INTERESTS:</label>
                     	<?php 
                     		if($userinterests) {
-                    			echo "<label class='info-label'>";
-                    			echo "<ul>";
+                    			echo "<label id='interests' class='info-label'>";
 								foreach ($userinterests as $i) {
-									echo "<li>";
+									echo "<span> - ";
 									$curcat = $cat->selectcatbyid($i->idcategory);
 									echo $curcat[0]->name;
-									echo "</li>";
+									echo "</span>";
 								}
-								echo "</ul>";
 								echo "</label>";
                     		}
                     		else {
