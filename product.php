@@ -1,4 +1,4 @@
-<?php  
+<?php
 	$isincart = false;
 	if($loguser) {
 		$isincart = order::hasThisInCart($product->idproduct, $loguser->iduser);
@@ -17,7 +17,7 @@
 <?php if($product->quantity > 0): ?>
 <h5>Availability: <span class="instock">In Stock</span></h5>
 <?php else: ?>
-<h5>Availability: <span class="outofstock">Out of Stock</span></h5>                            
+<h5>Availability: <span class="outofstock">Out of Stock</span></h5>
 <?php endif; ?>
 
 <p>

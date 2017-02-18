@@ -1,13 +1,13 @@
 <?php
     require_once('isuser.php');
-    
+
     if(isset($_GET['name'])&&!empty($_GET['name'])) {
         $product = product::selectbyname($_GET['name']);
         if(!$product) {
             echo "failed to view product";
             die;
         }
-    } 
+    }
     else {
         echo "no product selected to display";
             exit;
@@ -57,8 +57,12 @@
                             <input type="text" id="qty" name="qty" value="1" maxlength="2">
                             <input type="hidden" name="name" value="<?=$product->name?>" >
                             <button type="submit" class="secondary-cart-btn">
+                                <?php if(!order::hasThisInCart($product->idproduct, $loguser->iduser)): ?>
                                 <img src="img/white-cart.gif" alt="Add to Cart" />
                                  ADD TO CART
+                                <?php else: ?>
+                                <img src="img/white-cart.gif" alt="Already In Cart"> ALREADY IN CART </a>
+                                <?php endif; ?>
                             </button>
                         </form>
                     <?php } ?>
@@ -78,4 +82,3 @@
             <hr />
 
 <?php require_once 'footer.php'; ?>
-            

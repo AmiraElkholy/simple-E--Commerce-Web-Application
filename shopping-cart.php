@@ -36,6 +36,48 @@
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="js/vendor/jquery-3.1.1.js"></script>
+        <script type="text/javascript">
+
+            function UpdateView(){
+                var total=0;
+                $("table > tbody > tr > td:nth-child(5)").each(function(number,elt){
+                    var qty = $(this).parents("tr").children("td")[3].children[0].value;
+                    var price =$(this).parents("tr").children("td")[2].innerText.substring(1);
+                    elt.innerHTML="$ "+qty*price+' <a class="remove" href="#"><img src="img/remove.gif" alt="Remove product" /></a>';
+                    total+=qty*price;
+                    $('a.remove').on('click',function(evt){
+                        evt.preventDefault();
+                        $.ajax({
+                            url: 'remove-from-cart.php',
+                            method:"GET",
+                            data: {'qty': $(this).val() , 'name': $(this).parents("tr").children("td")[1].innerText },
+                            dataType: 'JSON',
+                            async:true
+                        });
+                        $(this).parents("tr").remove();
+                        UpdateView();
+                    });//Delete from cart
+                });
+                $(".total > td:nth-child(1) > span:nth-child(2)")[0].innerText = "TOTAL: $"+total;
+
+            }
+            $(function(){
+                UpdateView();
+                $('.qty').on('keyup',function(evt){
+                    evt.preventDefault();
+                    UpdateView();
+                    $.ajax({
+                        url: 'addtocart.php',
+                        method:"GET",
+                        data: {'qty': $(this).val() , 'name': $(this).parents("tr").children("td")[1].innerText },
+                        dataType: 'JSON',
+                        async:true
+                    });
+                });//end of handler
+
+            });//end of load
+        </script>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -68,19 +110,18 @@
                             <tr>
                                 <td><?= $key+1; ?></td>
                                 <td>
-                                    <img src="img/products/<?= $product->image; ?>" alt="Product" width="65" height="37" />
-                                    <?= $product->name ?>
+                                    <img src="img/products/<?=$product->image?>" alt="Product" width="65" height="37" /><?=$product->name?>
                                 </td>
-                                <td>$<?= $product->unitprice; ?></td>
+                                <td>$ <?=$product->unitprice?></td>
                                 <td>
                                     <input type="text" value="<?= $product->quantity; ?>" maxlength="2" class="qty" />
-                                    <a href="#">
+                                    <!-- <a href="addtocart.php?qty">
                                         <img src="img/refresh.gif" alt="Refresh cart" />
-                                    </a>
+                                    </a> -->
                                 </td>
                                 <td>
                                     $<?= $subtotal; ?>
-                                    <a href="#">
+                                    <a class="remove" href="#">
                                         <img src="img/remove.gif" alt="Remove product" />
                                     </a>
                                 </td>

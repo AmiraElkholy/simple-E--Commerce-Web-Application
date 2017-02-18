@@ -1,4 +1,4 @@
-<?php  
+<?php
     require_once('isuser.php');
     if(isset($_GET['id'])&&!empty($_GET['id'])) {
         //get category name from database
@@ -74,16 +74,15 @@
                     <?php require 'product.php'; ?>
                 <?php endforeach; ?>
                 <?php else: ?>
-    <?php if($subcategroies): ?>                      
+    <?php if($subcategroies): ?>
     <?php foreach ($subcategroies as $subcategory) {
     $catproducts = product::selectAllbycatid($subcategory->idcategory); ?>
     <?php if($catproducts): ?>
-    <?php foreach ($catproducts as $catproduct): ?> 
-    <?php 
+    <?php foreach ($catproducts as $catproduct): ?>
+    <?php
         $isincart = false;
         if($loguser) {
             $isincart = order::hasThisInCart($catproduct->idproduct, $loguser->iduser);
-            // var_dump($isincart);die;
         }
     ?>
                     <div class="product">
@@ -97,7 +96,7 @@
                         <?php if($catproduct->quantity > 0): ?>
                         <h5>Availability: <span class="instock">In Stock</span></h5>
                         <?php else: ?>
-                        <h5>Availability: <span class="outofstock">Out of Stock</span></h5>                            
+                        <h5>Availability: <span class="outofstock">Out of Stock</span></h5>
                         <?php endif; ?>
 
     <p>
@@ -117,11 +116,11 @@
                                 <img src="img/wish.gif">
                                  Found in <?= $subcategory->name; ?>
                             </a>
-                        </p>           
+                        </p>
                     </div>
                             <?php endforeach; ?>
                         <?php endif; ?>
-                    <?php 
+                    <?php
                      }
                     ?>
                     <?php endif; ?>
@@ -133,9 +132,9 @@
             <hr />
 
             <!-- <section id="pagination">
-                <p>Page: 
-                    <span class="current">1</span> / 
-                    <a href="#">2</a> / 
+                <p>Page:
+                    <span class="current">1</span> /
+                    <a href="#">2</a> /
                     <a href="#">3</a>
                 </p>
             </section> --><!-- end pagination -->
@@ -143,4 +142,3 @@
             <hr />
 
 <?php require_once 'footer.php'; ?>
-            

@@ -25,6 +25,7 @@
          <link rel="stylesheet" href="css/normalize.css">
          <link rel="stylesheet" href="css/main.css">
          <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+         
      </head>
      <body>
          <!--[if lt IE 7]>
@@ -35,7 +36,7 @@
 
          <?php require_once('header.php');  ?>
 
-         
+
             <section id="promo">
                 <div id="promo-details">
                     <h1>Today's Deals</h1>
